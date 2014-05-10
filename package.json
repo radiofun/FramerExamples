@@ -1,0 +1,22 @@
+{
+  "name": "FramerExamples",
+  "version": "0.0.0",
+  "description": "Examples for the Framer prototyping toolkit",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/koenbok/FramerExamples.git"
+  },
+  "author": "Koen Bok et al",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/koenbok/FramerExamples/issues"
+  },
+  "homepage": "https://github.com/koenbok/FramerExamples",
+  "dependencies": {
+    "coffee-script": "^1.7.1"
+  }
+}
