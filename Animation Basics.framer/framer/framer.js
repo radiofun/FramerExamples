@@ -88,7 +88,7 @@ exports.Animation = (function(_super) {
   };
 
   Animation.prototype._parseAnimatorOptions = function() {
-    var animatorClass, parsedCurve;
+    var animatorClass, i, k, parsedCurve, value, _i, _j, _len, _len1, _ref, _ref1, _results;
     animatorClass = this._animatorClass();
     parsedCurve = Utils.parseFunction(this.options.curve);
     if (animatorClass === LinearAnimator || animatorClass === BezierCurveAnimator) {
@@ -97,19 +97,32 @@ exports.Animation = (function(_super) {
     if (parsedCurve.args.length) {
       if (animatorClass === BezierCurveAnimator) {
         this.options.curveOptions.values = parsedCurve.args.map(function(v) {
-          return parseFloat(v);
+          return parseFloat(v) || 0;
         });
       }
       if (animatorClass === SpringRK4Animator) {
-        this.options.curveOptions.tension = parseFloat(parsedCurve.args[0]);
-        this.options.curveOptions.friction = parseFloat(parsedCurve.args[1]);
-        this.options.curveOptions.velocity = parseFloat(parsedCurve.args[2]);
+        _ref = ["tension", "friction", "velocity"];
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          k = _ref[i];
+          value = parseFloat(parsedCurve.args[i]);
+          if (value) {
+            this.options.curveOptions[k] = value;
+          }
+        }
       }
       if (animatorClass === SpringDHOAnimator) {
-        this.options.curveOptions.stiffness = parseFloat(parsedCurve.args[0]);
-        this.options.curveOptions.damping = parseFloat(parsedCurve.args[1]);
-        this.options.curveOptions.mass = parseFloat(parsedCurve.args[2]);
-        return this.options.curveOptions.tolerance = parseFloat(parsedCurve.args[3]);
+        _ref1 = ["stiffness", "damping", "mass", "tolerance"];
+        _results = [];
+        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+          k = _ref1[i];
+          value = parseFloat(parsedCurve.args[i]);
+          if (value) {
+            _results.push(this.options.curveOptions[k] = value);
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
       }
     }
   };
@@ -260,12 +273,12 @@ AnimationLoop = {
       }
     }
     AnimationLoop._time = time;
-    window.requestAnimationFrame(AnimationLoop._tick);
     for (_j = 0, _len1 = removeAnimators.length; _j < _len1; _j++) {
       animator = removeAnimators[_j];
       AnimationLoop.remove(animator);
       animator.emit("end");
     }
+    window.requestAnimationFrame(AnimationLoop._tick);
   },
   add: function(animator) {
     if (animator.hasOwnProperty(AnimationLoopIndexKey)) {
@@ -276,7 +289,7 @@ AnimationLoop = {
     return AnimationLoop._start();
   },
   remove: function(animator) {
-    AnimationLoop._animators.splice(animator[AnimationLoop._animators], 1);
+    AnimationLoop._animators = _.without(AnimationLoop._animators, animator);
     return animator.emit("stop");
   }
 };
@@ -362,14 +375,15 @@ exports.BezierCurveAnimator = (function(_super) {
   }
 
   BezierCurveAnimator.prototype.setup = function(options) {
-    var optionValues, _ref1;
-    optionValues = (_ref1 = options.values) != null ? _ref1.toLowerCase() : void 0;
-    if (_.isString(optionValues)) {
-      if (BezierCurveDefaults.hasOwnProperty(optionValues)) {
-        options.values = BezierCurveDefaults[optionValues];
-      } else {
-        delete options.values;
-      }
+    if (_.isString(options) && BezierCurveDefaults.hasOwnProperty(options.toLowerCase())) {
+      options = {
+        values: BezierCurveDefaults[options.toLowerCase()]
+      };
+    }
+    if (_.isArray(options) && options.length === 4) {
+      options = {
+        values: options
+      };
     }
     this.options = Utils.setDefaultProperties(options, {
       values: BezierCurveDefaults["ease-in-out"],
@@ -536,6 +550,7 @@ exports.SpringDHOAnimator = (function(_super) {
       mass: 0.2,
       time: null
     });
+    console.log("SpringDHOAnimator.options", this.options, options);
     this._time = 0;
     this._value = 0;
     return this._velocity = this.options.velocity;
@@ -587,7 +602,7 @@ exports.SpringRK4Animator = (function(_super) {
   SpringRK4Animator.prototype.setup = function(options) {
     this.options = Utils.setDefaultProperties(options, {
       tension: 500,
-      friction: 25,
+      friction: 10,
       velocity: 0,
       tolerance: 1 / 10000,
       time: null
