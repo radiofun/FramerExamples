@@ -1,5 +1,7 @@
 import sys
 import os
+import tempfile
+import shutil
 
 def run(command):
 	os.system(command)
@@ -10,6 +12,18 @@ path = os.path.abspath(path)
 def downloadFile(url, path):
 	os.system("curl -# '%s' | gzip -d > '%s'" % (url, path))
 
+# Download the latest framer files
+tempPath = tempfile.mkdtemp()
+
+downloadFile(
+	"http://builds.framerjs.com/latest/framer.js",
+	os.path.join(tempPath, "framer.js"))
+
+downloadFile(
+	"http://builds.framerjs.com/latest/framer.js.map",
+	os.path.join(tempPath, "framer.js.map"))
+
+
 for fileName in os.listdir(path):
 	
 	filePath = os.path.join(path, fileName)
@@ -19,10 +33,10 @@ for fileName in os.listdir(path):
 
 	print "Updating Framer in '%s'" % filePath
 
-	downloadFile(
-		"http://builds.framerjs.com/latest/framer.js",
+	shutil.copyfile(
+		os.path.join(tempPath, "framer.js"),
 		os.path.join(filePath, "framer", "framer.js"))
 
-	downloadFile(
-		"http://builds.framerjs.com/latest/framer.js.map",
+	shutil.copyfile(
+		os.path.join(tempPath, "framer.js.map"),
 		os.path.join(filePath, "framer", "framer.js.map"))

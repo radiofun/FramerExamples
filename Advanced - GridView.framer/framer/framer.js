@@ -88,28 +88,48 @@ exports.Animation = (function(_super) {
   };
 
   Animation.prototype._parseAnimatorOptions = function() {
-    var animatorClass, parsedCurve;
+    var animatorClass, i, k, parsedCurve, value, _base, _i, _j, _len, _len1, _ref, _ref1, _results;
     animatorClass = this._animatorClass();
     parsedCurve = Utils.parseFunction(this.options.curve);
     if (animatorClass === LinearAnimator || animatorClass === BezierCurveAnimator) {
-      this.options.curveOptions.time = this.options.time;
+      if (_.isString(this.options.curveOptions) || _.isArray(this.options.curveOptions)) {
+        this.options.curveOptions = {
+          values: this.options.curveOptions
+        };
+      }
+      if ((_base = this.options.curveOptions).time == null) {
+        _base.time = this.options.time;
+      }
     }
     if (parsedCurve.args.length) {
       if (animatorClass === BezierCurveAnimator) {
         this.options.curveOptions.values = parsedCurve.args.map(function(v) {
-          return parseFloat(v);
+          return parseFloat(v) || 0;
         });
       }
       if (animatorClass === SpringRK4Animator) {
-        this.options.curveOptions.tension = parseFloat(parsedCurve.args[0]);
-        this.options.curveOptions.friction = parseFloat(parsedCurve.args[1]);
-        this.options.curveOptions.velocity = parseFloat(parsedCurve.args[2]);
+        _ref = ["tension", "friction", "velocity"];
+        for (i = _i = 0, _len = _ref.length; _i < _len; i = ++_i) {
+          k = _ref[i];
+          value = parseFloat(parsedCurve.args[i]);
+          if (value) {
+            this.options.curveOptions[k] = value;
+          }
+        }
       }
       if (animatorClass === SpringDHOAnimator) {
-        this.options.curveOptions.stiffness = parseFloat(parsedCurve.args[0]);
-        this.options.curveOptions.damping = parseFloat(parsedCurve.args[1]);
-        this.options.curveOptions.mass = parseFloat(parsedCurve.args[2]);
-        return this.options.curveOptions.tolerance = parseFloat(parsedCurve.args[3]);
+        _ref1 = ["stiffness", "damping", "mass", "tolerance"];
+        _results = [];
+        for (i = _j = 0, _len1 = _ref1.length; _j < _len1; i = ++_j) {
+          k = _ref1[i];
+          value = parseFloat(parsedCurve.args[i]);
+          if (value) {
+            _results.push(this.options.curveOptions[k] = value);
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
       }
     }
   };
@@ -260,12 +280,12 @@ AnimationLoop = {
       }
     }
     AnimationLoop._time = time;
-    window.requestAnimationFrame(AnimationLoop._tick);
     for (_j = 0, _len1 = removeAnimators.length; _j < _len1; _j++) {
       animator = removeAnimators[_j];
       AnimationLoop.remove(animator);
       animator.emit("end");
     }
+    window.requestAnimationFrame(AnimationLoop._tick);
   },
   add: function(animator) {
     if (animator.hasOwnProperty(AnimationLoopIndexKey)) {
@@ -276,7 +296,7 @@ AnimationLoop = {
     return AnimationLoop._start();
   },
   remove: function(animator) {
-    AnimationLoop._animators.splice(animator[AnimationLoop._animators], 1);
+    AnimationLoop._animators = _.without(AnimationLoop._animators, animator);
     return animator.emit("stop");
   }
 };
@@ -310,15 +330,15 @@ exports.Animator = (function(_super) {
   }
 
   Animator.prototype.setup = function(options) {
-    throw "Not implemented";
+    throw Error("Not implemented");
   };
 
   Animator.prototype.next = function(delta) {
-    throw "Not implemented";
+    throw Error("Not implemented");
   };
 
   Animator.prototype.finished = function() {
-    throw "Not implemented";
+    throw Error("Not implemented");
   };
 
   Animator.prototype.start = function() {
@@ -362,14 +382,21 @@ exports.BezierCurveAnimator = (function(_super) {
   }
 
   BezierCurveAnimator.prototype.setup = function(options) {
-    var optionValues, _ref1;
-    optionValues = (_ref1 = options.values) != null ? _ref1.toLowerCase() : void 0;
-    if (_.isString(optionValues)) {
-      if (BezierCurveDefaults.hasOwnProperty(optionValues)) {
-        options.values = BezierCurveDefaults[optionValues];
-      } else {
-        delete options.values;
-      }
+    if (_.isString(options) && BezierCurveDefaults.hasOwnProperty(options.toLowerCase())) {
+      options = {
+        values: BezierCurveDefaults[options.toLowerCase()]
+      };
+    }
+    if (options.values && _.isString(options.values) && BezierCurveDefaults.hasOwnProperty(options.values.toLowerCase())) {
+      options = {
+        values: BezierCurveDefaults[options.values.toLowerCase()],
+        time: options.time
+      };
+    }
+    if (_.isArray(options) && options.length === 4) {
+      options = {
+        values: options
+      };
     }
     this.options = Utils.setDefaultProperties(options, {
       values: BezierCurveDefaults["ease-in-out"],
@@ -536,6 +563,7 @@ exports.SpringDHOAnimator = (function(_super) {
       mass: 0.2,
       time: null
     });
+    console.log("SpringDHOAnimator.options", this.options, options);
     this._time = 0;
     this._value = 0;
     return this._velocity = this.options.velocity;
@@ -587,7 +615,7 @@ exports.SpringRK4Animator = (function(_super) {
   SpringRK4Animator.prototype.setup = function(options) {
     this.options = Utils.setDefaultProperties(options, {
       tension: 500,
-      friction: 25,
+      friction: 10,
       velocity: 0,
       tolerance: 1 / 10000,
       time: null
@@ -811,45 +839,50 @@ exports.BaseClass = (function(_super) {
 
 
 },{"./EventEmitter":13,"./Underscore":22,"./Utils":23}],9:[function(require,module,exports){
-var CompatImageView, CompatScrollView, CompatView, Layer, compatProperty, _ref,
+var CompatImageView, CompatLayer, CompatScrollView, CompatView, Layer, compatProperty, compatWarning, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Layer = require("./Layer").Layer;
 
+compatWarning = function(msg) {
+  return console.warn(msg);
+};
+
 compatProperty = function(name) {
   return {
     exportable: false,
     get: function() {
+      compatWarning("" + name + " is a deprecated property");
       return this[name];
     },
     set: function(value) {
+      compatWarning("" + name + " is a deprecated property");
       return this[name] = value;
     }
   };
 };
 
-CompatView = (function(_super) {
+CompatLayer = (function(_super) {
   var addSubView, removeSubView;
 
-  __extends(CompatView, _super);
+  __extends(CompatLayer, _super);
 
-  function CompatView(options) {
+  function CompatLayer(options) {
     if (options == null) {
       options = {};
     }
-    console.debug("CompatView.constructor: Views are now called Layers");
     if (options.hasOwnProperty("superView")) {
       options.superLayer = options.superView;
     }
-    CompatView.__super__.constructor.call(this, options);
+    CompatLayer.__super__.constructor.call(this, options);
   }
 
-  CompatView.define("superView", compatProperty("superLayer"));
+  CompatLayer.define("superView", compatProperty("superLayer"));
 
-  CompatView.define("subViews", compatProperty("subLayers"));
+  CompatLayer.define("subViews", compatProperty("subLayers"));
 
-  CompatView.define("siblingViews", compatProperty("siblingLayers"));
+  CompatLayer.define("siblingViews", compatProperty("siblingLayers"));
 
   addSubView = function(layer) {
     return this.addSubLayer(layer);
@@ -859,9 +892,24 @@ CompatView = (function(_super) {
     return this.removeSubLayer(layer);
   };
 
-  return CompatView;
+  return CompatLayer;
 
 })(Layer);
+
+CompatView = (function(_super) {
+  __extends(CompatView, _super);
+
+  function CompatView(options) {
+    if (options == null) {
+      options = {};
+    }
+    compatWarning("Views are now called Layers");
+    CompatView.__super__.constructor.call(this, options);
+  }
+
+  return CompatView;
+
+})(CompatLayer);
 
 CompatImageView = (function(_super) {
   __extends(CompatImageView, _super);
@@ -886,6 +934,10 @@ CompatScrollView = (function(_super) {
   return CompatScrollView;
 
 })(CompatView);
+
+window.Layer = CompatLayer;
+
+window.Framer.Layer = CompatLayer;
 
 window.View = CompatView;
 
@@ -1862,7 +1914,7 @@ exports.Layer = (function(_super) {
         return;
       }
       if (!layer instanceof Layer) {
-        throw "Layer.superLayer needs to be a Layer object";
+        throw Error("Layer.superLayer needs to be a Layer object");
       }
       Utils.domCompleteCancel(this.__insertElement);
       if (this._superLayer) {
@@ -2278,7 +2330,7 @@ exports.LayerStates = (function(_super) {
       return;
     }
     error = function() {
-      throw "Usage example: layer.states.add(\"someName\", {x:500})";
+      throw Error("Usage example: layer.states.add(\"someName\", {x:500})");
     };
     if (!_.isString(stateName)) {
       error();
@@ -2325,13 +2377,13 @@ exports.LayerStates = (function(_super) {
         continue;
       }
       if (_.isFunction(v)) {
-        v = v();
+        v = v.call(this.layer, this.layer, stateName);
       }
       animationOptions.properties[k] = v;
     }
     animation = this.layer.animate(animationOptions);
     return animation.on("stop", function() {
-      return _this.emit("didSwitch", _.last(_this._previousStates, stateName, _this));
+      return _this.emit("didSwitch", _.last(_this._previousStates), stateName, _this);
     });
   };
 
@@ -2635,6 +2687,20 @@ Utils.randomNumber = function(a, b) {
   return Utils.mapRange(Math.random(), 0, 1, a, b);
 };
 
+Utils.labelLayer = function(layer, text, style) {
+  if (style == null) {
+    style = {};
+  }
+  style = _.extend({
+    font: "10px/1em Menlo",
+    lineHeight: "" + layer.height + "px",
+    textAlign: "center",
+    color: "#fff"
+  }, style);
+  layer.style = style;
+  return layer.html = text;
+};
+
 Utils.uuid = function() {
   var chars, digit, output, r, random, _i;
   chars = "0123456789abcdefghijklmnopqrstuvwxyz".split("");
@@ -2782,7 +2848,7 @@ Utils.domLoadDataSync = function(path) {
   }
   data = request.responseText;
   if (!data) {
-    throw "Utils.domLoadDataSync: no data was loaded (url not found?)";
+    throw Error("Utils.domLoadDataSync: no data was loaded (url not found?)");
   }
   return request.responseText;
 };
