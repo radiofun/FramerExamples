@@ -41,7 +41,7 @@ for fileName in os.listdir(path):
 	# Convert coffee single line comments to block comments
 
 	def isCommentLine(line):
-		return line.startswith("# ")
+		return line.strip().startswith("# ")
 
 	def processCSLine(index, line, lines):
 
@@ -52,25 +52,26 @@ for fileName in os.listdir(path):
 			
 		if isCommentLine(line):
 			
+			# Single comment line
 			if not isCommentLine(lastLine) and not isCommentLine(nextLine):
-				return "### " + line.strip("# ").strip("\n") + " ###\n"
+				return line.replace("# ", "### ").strip("\n") + " ###\n"
 
 			# Start the block
 			if not isCommentLine(lastLine):
-				return "### " + line.strip("# ")
+				return line.replace("# ", "### ")
 
 			# End the block
 			if not isCommentLine(nextLine):
-				return line.strip("# ").strip("\n") + " ###\n"
+				return line.replace("# ", "").strip("\n") + " ###\n"
 
-			return line.strip("# ")
+			return line.replace("# ", "")
 
 
 		return line
 
 	processLines(appCoffeePath, appCoffeeTempPath, processCSLine)
 
-	run("../node_modules/.bin/coffee -pbc --no-header '%s' > '%s'" % (
+	run("./node_modules/.bin/coffee -pbc --no-header '%s' > '%s'" % (
 		appCoffeeTempPath, appJSPath))
 
 	# Clean up a bunch of loose hanging */
