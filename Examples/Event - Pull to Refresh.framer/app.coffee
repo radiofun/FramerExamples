@@ -41,24 +41,25 @@ PSD.timeline.on Events.TouchMove, (event) ->
 	PSD.timeline.y = timelineStartY - deltaY
 	PSD.refreshControl.y = PSD.timeline.y - 70
 	
-	# If you have pulled enough (in this case more than 100 pixels)
-	# and if the arrow is not animating, then flip the arrow and
-	# set animating to true. We do this so that the arrow doesn't 
-	# try and animate each time you move, which would be very janky.
-	# By using an animating variable, the animation only gets called
-	# once, and is very smooth.
 	if deltaY < -100
+		# If you have pulled enough (in this case more than 100 pixels)
+		# and if the arrow is not animating, then flip the arrow and
+		# set animating to true. We do this so that the arrow doesn't 
+		# try and animate each time you move, which would be very janky.
+		# By using an animating variable, the animation only gets called
+		# once, and is very smooth.	
 		if animating == false
 			PSD.arrow.animate
 				properties:
 					rotation: -180
 				curve: springCurve
 			animating = true
-	# If you have pulled more than 100px, but then drag back up, 
-	# flip the arrow back. We use the same animating variable to 
-	# make sure we only try and animate if you already pulled 
-	# past 100px, and we only call animate once.
+
 	else 
+		# If you have pulled more than 100px, but then drag back up, 
+		# flip the arrow back. We use the same animating variable to 
+		# make sure we only try and animate if you already pulled 
+		# past 100px, and we only call animate once.
 		if animating == true
 			PSD.arrow.animate
 				properties:
