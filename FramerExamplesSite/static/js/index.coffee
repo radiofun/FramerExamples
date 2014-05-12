@@ -9,7 +9,15 @@ $(document).ready ->
 	if exampleName
 		showExample exampleName
 
+		$("a").each ->
+			if $(@).attr("href")[1..] == exampleName
+				$(@).addClass "active"
+
 	$("a").click ->
+
+		$("a").removeClass "active"
+		$(@).addClass "active"
+
 		exampleName = $(@).attr("href")[1..]
 		showExample exampleName
 

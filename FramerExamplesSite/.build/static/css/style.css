@@ -54,6 +54,10 @@ a:hover {
 	border-top: 1px solid #eee;
 }
 
+a.active {
+	color: red;
+}
+
 
 #code {
 	position: absolute;
