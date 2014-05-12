@@ -8,12 +8,10 @@ $(document).ready ->
 
 	exampleName = getParameterByName "name"
 
-	# Load the framer associated with this example
-	$.getScript "/static/examples/#{exampleName}/framer/framer.js", ->
+	# Set the base dir so images load
+	$("head").append $("<base href=\"/static/examples/#{exampleName}/\">")
 
-		# Set the base dir so images load
-		$("head").append $("<base href=\"/static/examples/#{exampleName}/\">")
-		
-		# Load the project
-		$.getScript "/static/examples/#{exampleName}/app.js", (err, data) ->
+	# Load the framer associated with this example
+	$.getScript "framer/framer.js", ->
+		$.getScript "app.js", (err, data) ->
 			console.log data
