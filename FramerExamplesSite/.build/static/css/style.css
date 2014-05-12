@@ -12,7 +12,7 @@ body {
 
 a {
 	text-decoration: none;
-	color:#666;
+	color:#888;
 	font-weight: 400;
 }
 
@@ -23,6 +23,8 @@ h1 {
 	background: #8ECFEE;
 	padding: 30px 20px;
 	color: #fff;
+	text-align: center;
+	line-height: 1;
 }
 
 .navigation {
@@ -31,6 +33,7 @@ h1 {
 	bottom: 0px;
 	width: 20%;
 	background: #fff;
+	min-width: 200px;
 }
 
 .navigation ul {
@@ -55,9 +58,10 @@ a:hover {
 }
 
 a.active {
-	color: red;
+	font-weight: 500;
+	color: #333;
+	position: relative;
 }
-
 
 #code {
 	position: absolute;
@@ -69,6 +73,7 @@ a.active {
 	background: #282C33; 
 	border: none;
 	border-right: 1px solid #343840;
+	min-width: 300px;
 }
 
 #example {
@@ -80,6 +85,7 @@ a.active {
 	width: 50%;
 	background-color: #282C33;
 	border: none;
+	min-width: 400px;
 }
 
 /* ================= Customs scrollbar ================= */
@@ -95,4 +101,7 @@ a.active {
 	border-radius: 6px;
 }
 
+@media only screen and (max-width: 900px) {
 
+
+}
