@@ -7,6 +7,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 body {
 	margin: 0;
 	font:13px/1.4 "colfax-web", "Helvetica Neue",Helvetica,Arial,sans-serif;
+	background: #282C33;
 }
 
 a {
@@ -37,6 +38,7 @@ h1 {
 
 .navigation ul li {
 	padding: 15px 0;
+	line-height: 1;
 }
 
 .navigation ul li+li {
@@ -63,6 +65,7 @@ h1 {
 	width: 50%;
 	background-color: #282C33;
 	border: none;
+	border-left: 1px solid #343840;
 }
 
 
