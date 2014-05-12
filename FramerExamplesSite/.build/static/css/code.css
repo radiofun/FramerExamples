@@ -7,6 +7,12 @@ pre {
     line-height: 1.4em;
     font-weight: normal;
     padding: 20px;
+    
+    -ms-word-break: break-all;
+         word-break: break-all;
+	-webkit-hyphens: auto;
+	   -moz-hyphens: auto;
+	        hyphens: auto;
 }
 
 pre, code {

@@ -16,24 +16,27 @@ a {
 	font-weight: 400;
 }
 
-
 h1 {
 	font-size: 15px; font-weight: 500;
 	margin-bottom: 30px;
 	text-transform: uppercase;
 	letter-spacing: 1px;
+	background: #92CEE1;
+	padding: 30px;
+	color: #fff;
 }
+
 .navigation {
 	position: absolute;
 	top: 0px;
 	bottom: 0px;
 	width: 20%;
 	background: #fff;
-	padding: 30px;
 }
 
 .navigation ul {
 	list-style: none;
+	padding: 0 30px 30px;
 }
 
 .navigation ul li {
@@ -54,6 +57,7 @@ h1 {
 	width: 30%;
 	background: #282C33; 
 	border: none;
+	border-right: 1px solid #343840;
 }
 
 #example {
@@ -65,15 +69,12 @@ h1 {
 	width: 50%;
 	background-color: #282C33;
 	border: none;
-	border-left: 1px solid #343840;
 }
-
 
 /* ================= Customs scrollbar ================= */
 
 ::-webkit-scrollbar {
 	background: #282C33;
-	box-shadow: inset 1px 0 0 #343840, inset -1px 0 0 #343840;
 	width: 6px;
 }
  
