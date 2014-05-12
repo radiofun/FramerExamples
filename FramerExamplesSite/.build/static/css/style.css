@@ -38,11 +38,11 @@ h1 {
 }
 
 .navigation ul li {
-	line-height: 1;
+	line-height: 1.5;
 }
 
 .navigation ul li a {
-	padding: 15px;
+	padding: 13px 15px 10px 15px;
 	display: block;
 }
 
@@ -90,3 +90,5 @@ a:hover {
 	background: #343840;
 	border-radius: 6px;
 }
+
+
