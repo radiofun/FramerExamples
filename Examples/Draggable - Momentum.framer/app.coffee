@@ -5,6 +5,8 @@ layerA.center()
 # Make the layer draggable
 layerA.draggable.enabled = true
 
+Utils.labelLayer layerA, "Drag me"
+
 # Add an animation to the end of a drag to mimic momentum
 layerA.on Events.DragEnd, (event, layer) ->
 	

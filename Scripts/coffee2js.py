@@ -85,5 +85,5 @@ for fileName in os.listdir(path):
 	with open(appJSPath, "w") as f:
 		f.write(data)
 
-	# os.remove(appCoffeeTempPath) 
+	os.remove(appCoffeeTempPath) 
 
