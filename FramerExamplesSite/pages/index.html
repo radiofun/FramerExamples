@@ -7,9 +7,10 @@
 
 
 <div class="navigation">
+	<h1> Examples </h1>
 	<ul>
 	{% for example in examples %}
-		<li><a href="#{{ example }}">{{ example }}</a></li>
+		<li><a href="#{{ example.path }}">{{ example.name }}</a></li>
 	{% endfor %}
 	</ul>
 </div>

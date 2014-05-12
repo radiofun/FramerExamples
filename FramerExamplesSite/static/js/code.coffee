@@ -12,4 +12,5 @@ $(document).ready ->
 		url: "/static/examples/#{exampleName}/app.js"
 		dataType: "text",
 		success: (data) ->
-			$("pre").html data
+			Rainbow.color data, "javascript", (result) ->
+				$("code").html result

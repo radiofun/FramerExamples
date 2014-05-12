@@ -7,7 +7,11 @@
 
 	<link rel="shortcut icon" href="{% static '/images/favicon.ico' %}">
 	<link rel="stylesheet" href="{% static '/css/style.css' %}">
-
+	
+	<!-- Colfax Typeface -->
+	<script type="text/javascript" src="//use.typekit.net/ivi1pzu.js"></script>
+	<script type="text/javascript">Typekit.load();</script>
+	
 	{% block header %}
 	<title>{% block title %}Default{% endblock %}</title>
 	{% endblock header %}
@@ -17,7 +21,8 @@
 	{% block content %}
 	Main content
 	{% endblock content %}
-
+	
+	
 
 </body>
 </html>

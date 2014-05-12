@@ -20,7 +20,9 @@
       url: "/static/examples/" + exampleName + "/app.js",
       dataType: "text",
       success: function(data) {
-        return $("pre").html(data);
+        return Rainbow.color(data, "javascript", function(result) {
+          return $("code").html(result);
+        });
       }
     });
   });

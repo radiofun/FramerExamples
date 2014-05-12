@@ -37,7 +37,8 @@ def preBuild(site):
 
     for fileName in os.listdir(os.path.join(site.static_path, "examples")):
         if fileName.endswith(".framer"):
-            EXTRA_CONTEXT["examples"].append(fileName)
+            EXTRA_CONTEXT["examples"].append({
+            	"path":fileName, "name":fileName.replace(".framer", "")})
 
 def preBuildPage(site, context, data):
     context.update(EXTRA_CONTEXT)
