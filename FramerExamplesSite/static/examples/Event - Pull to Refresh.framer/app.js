@@ -24,13 +24,17 @@ animating = false;
 
 springCurve = "spring(200,20,0)";
 
+PSD.timeline.draggable.enabled = true;
+
+PSD.timeline.draggable.speedX = 0;
+
 /* When you click (or taps), we need to grab the y position of 
 that click so that we can use it when you drag (to see how far 
 they have pulled. We also want to reset values for our refresh 
 control so everything is correct in case you pull to refresh 
 more than once. */
 
-PSD.timeline.on(Events.TouchStart, function(event) {
+PSD.timeline.on(Events.DragStart, function(event) {
   startY = event.y;
   PSD.spinner.scale = 0;
   PSD.spinner.rotation = 0;
@@ -43,7 +47,7 @@ the timeline should follow your mouse/finger. The arrow should
 also animate once you have pulled enough, letting you know you
 can release to refresh. */
 
-PSD.timeline.on(Events.TouchMove, function(event) {
+PSD.timeline.on(Events.DragMove, function(event) {
 
   /* Figure out how far you have pulled, and then move the timline
   	and refresh controls that amount
@@ -51,15 +55,15 @@ PSD.timeline.on(Events.TouchMove, function(event) {
   deltaY = startY - event.y;
   PSD.timeline.y = timelineStartY - deltaY;
   PSD.refreshControl.y = PSD.timeline.y - 70;
-  if (deltaY < -100) {
 
-    /* If you have pulled enough (in this case more than 100 pixels)
-    		and if the arrow is not animating, then flip the arrow and
-    		set animating to true. We do this so that the arrow doesn't 
-    		try and animate each time you move, which would be very janky.
-    		By using an animating variable, the animation only gets called
-    		once, and is very smooth.
-     */
+  /* If you have pulled enough (in this case more than 100 pixels)
+  	and if the arrow is not animating, then flip the arrow and
+  	set animating to true. We do this so that the arrow doesn't 
+  	try and animate each time you move, which would be very janky.
+  	By using an animating variable, the animation only gets called
+  	once, and is very smooth.
+   */
+  if (deltaY < -100) {
     if (animating === false) {
       PSD.arrow.animate({
         properties: {
@@ -94,7 +98,7 @@ and then after a delay, animate back to the starting position.
 If you pulled and released under 100px, then just animate 
 back to the starting position. */
 
-PSD.timeline.on(Events.TouchEnd, function() {
+PSD.timeline.on(Events.DragEnd, function() {
   if (deltaY < -100) {
     PSD.refreshControl.animate({
       properties: {

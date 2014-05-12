@@ -1,5 +1,5 @@
 ;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var AnimatorClasses, BezierCurveAnimator, Config, EventEmitter, LinearAnimator, SpringDHOAnimator, SpringRK4Animator, Utils, _, _runningAnimations,
+var AnimatorClasses, BezierCurveAnimator, Config, EventEmitter, Frame, LinearAnimator, SpringDHOAnimator, SpringRK4Animator, Utils, _, _runningAnimations,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -11,6 +11,8 @@ Utils = require("./Utils");
 Config = require("./Config").Config;
 
 EventEmitter = require("./EventEmitter").EventEmitter;
+
+Frame = require("./Frame").Frame;
 
 LinearAnimator = require("./Animators/LinearAnimator").LinearAnimator;
 
@@ -62,6 +64,9 @@ exports.Animation = (function(_super) {
     if (options.origin) {
       console.warn("Animation.origin: please use layer.originX and layer.originY");
     }
+    if (options.properties instanceof Frame) {
+      option.properties = option.properties.properties;
+    }
     this.options.properties = this._filterAnimatableProperties(this.options.properties);
     this._parseAnimatorOptions();
     this._originalState = this._currentState();
@@ -88,11 +93,18 @@ exports.Animation = (function(_super) {
   };
 
   Animation.prototype._parseAnimatorOptions = function() {
-    var animatorClass, i, k, parsedCurve, value, _i, _j, _len, _len1, _ref, _ref1, _results;
+    var animatorClass, i, k, parsedCurve, value, _base, _i, _j, _len, _len1, _ref, _ref1, _results;
     animatorClass = this._animatorClass();
     parsedCurve = Utils.parseFunction(this.options.curve);
     if (animatorClass === LinearAnimator || animatorClass === BezierCurveAnimator) {
-      this.options.curveOptions.time = this.options.time;
+      if (_.isString(this.options.curveOptions) || _.isArray(this.options.curveOptions)) {
+        this.options.curveOptions = {
+          values: this.options.curveOptions
+        };
+      }
+      if ((_base = this.options.curveOptions).time == null) {
+        _base.time = this.options.time;
+      }
     }
     if (parsedCurve.args.length) {
       if (animatorClass === BezierCurveAnimator) {
@@ -215,7 +227,7 @@ exports.Animation = (function(_super) {
 })(EventEmitter);
 
 
-},{"./Animators/BezierCurveAnimator":4,"./Animators/LinearAnimator":5,"./Animators/SpringDHOAnimator":6,"./Animators/SpringRK4Animator":7,"./Config":10,"./EventEmitter":13,"./Underscore":22,"./Utils":23}],2:[function(require,module,exports){
+},{"./Animators/BezierCurveAnimator":4,"./Animators/LinearAnimator":5,"./Animators/SpringDHOAnimator":6,"./Animators/SpringRK4Animator":7,"./Config":10,"./EventEmitter":13,"./Frame":15,"./Underscore":22,"./Utils":23}],2:[function(require,module,exports){
 var AnimationLoop, AnimationLoopIndexKey, Config, EventEmitter, Utils, _;
 
 _ = require("./Underscore")._;
@@ -323,15 +335,15 @@ exports.Animator = (function(_super) {
   }
 
   Animator.prototype.setup = function(options) {
-    throw "Not implemented";
+    throw Error("Not implemented");
   };
 
   Animator.prototype.next = function(delta) {
-    throw "Not implemented";
+    throw Error("Not implemented");
   };
 
   Animator.prototype.finished = function() {
-    throw "Not implemented";
+    throw Error("Not implemented");
   };
 
   Animator.prototype.start = function() {
@@ -378,6 +390,12 @@ exports.BezierCurveAnimator = (function(_super) {
     if (_.isString(options) && BezierCurveDefaults.hasOwnProperty(options.toLowerCase())) {
       options = {
         values: BezierCurveDefaults[options.toLowerCase()]
+      };
+    }
+    if (options.values && _.isString(options.values) && BezierCurveDefaults.hasOwnProperty(options.values.toLowerCase())) {
+      options = {
+        values: BezierCurveDefaults[options.values.toLowerCase()],
+        time: options.time
       };
     }
     if (_.isArray(options) && options.length === 4) {
@@ -826,45 +844,50 @@ exports.BaseClass = (function(_super) {
 
 
 },{"./EventEmitter":13,"./Underscore":22,"./Utils":23}],9:[function(require,module,exports){
-var CompatImageView, CompatScrollView, CompatView, Layer, compatProperty, _ref,
+var CompatImageView, CompatLayer, CompatScrollView, CompatView, Layer, compatProperty, compatWarning, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Layer = require("./Layer").Layer;
 
+compatWarning = function(msg) {
+  return console.warn(msg);
+};
+
 compatProperty = function(name) {
   return {
     exportable: false,
     get: function() {
+      compatWarning("" + name + " is a deprecated property");
       return this[name];
     },
     set: function(value) {
+      compatWarning("" + name + " is a deprecated property");
       return this[name] = value;
     }
   };
 };
 
-CompatView = (function(_super) {
+CompatLayer = (function(_super) {
   var addSubView, removeSubView;
 
-  __extends(CompatView, _super);
+  __extends(CompatLayer, _super);
 
-  function CompatView(options) {
+  function CompatLayer(options) {
     if (options == null) {
       options = {};
     }
-    console.debug("CompatView.constructor: Views are now called Layers");
     if (options.hasOwnProperty("superView")) {
       options.superLayer = options.superView;
     }
-    CompatView.__super__.constructor.call(this, options);
+    CompatLayer.__super__.constructor.call(this, options);
   }
 
-  CompatView.define("superView", compatProperty("superLayer"));
+  CompatLayer.define("superView", compatProperty("superLayer"));
 
-  CompatView.define("subViews", compatProperty("subLayers"));
+  CompatLayer.define("subViews", compatProperty("subLayers"));
 
-  CompatView.define("siblingViews", compatProperty("siblingLayers"));
+  CompatLayer.define("siblingViews", compatProperty("siblingLayers"));
 
   addSubView = function(layer) {
     return this.addSubLayer(layer);
@@ -874,9 +897,24 @@ CompatView = (function(_super) {
     return this.removeSubLayer(layer);
   };
 
-  return CompatView;
+  return CompatLayer;
 
 })(Layer);
+
+CompatView = (function(_super) {
+  __extends(CompatView, _super);
+
+  function CompatView(options) {
+    if (options == null) {
+      options = {};
+    }
+    compatWarning("Views are now called Layers");
+    CompatView.__super__.constructor.call(this, options);
+  }
+
+  return CompatView;
+
+})(CompatLayer);
 
 CompatImageView = (function(_super) {
   __extends(CompatImageView, _super);
@@ -901,6 +939,10 @@ CompatScrollView = (function(_super) {
   return CompatScrollView;
 
 })(CompatView);
+
+window.Layer = CompatLayer;
+
+window.Framer.Layer = CompatLayer;
 
 window.View = CompatView;
 
@@ -1184,6 +1226,14 @@ Events.Click = Events.TouchEnd;
 Events.MouseOver = "mouseover";
 
 Events.MouseOut = "mouseout";
+
+Events.AnimationStart = "start";
+
+Events.AnimationStop = "stop";
+
+Events.AnimationEnd = "end";
+
+Events.Scroll = "scroll";
 
 Events.touchEvent = function(event) {
   var touchEvent, _ref, _ref1;
@@ -1586,13 +1636,13 @@ exports.Layer = (function(_super) {
 
   Layer.define("clip", layerProperty("clip", "overflow", true));
 
-  Layer.define("scrollX", layerProperty("scrollX", "overflowX", false, function(layer, value) {
+  Layer.define("scrollHorizontal", layerProperty("scrollHorizontal", "overflowX", false, function(layer, value) {
     if (value === true) {
       return layer.ignoreEvents = false;
     }
   }));
 
-  Layer.define("scrollY", layerProperty("scrollY", "overflowY", false, function(layer, value) {
+  Layer.define("scrollVertical", layerProperty("scrollVertical", "overflowY", false, function(layer, value) {
     if (value === true) {
       return layer.ignoreEvents = false;
     }
@@ -1600,10 +1650,10 @@ exports.Layer = (function(_super) {
 
   Layer.define("scroll", {
     get: function() {
-      return this.scrollX === true || this.scrollY === true;
+      return this.scrollHorizontal === true || this.scrollVertical === true;
     },
     set: function(value) {
-      return this.scrollX = this.scrollY = true;
+      return this.scrollHorizontal = this.scrollVertical = true;
     }
   });
 
@@ -1732,10 +1782,8 @@ exports.Layer = (function(_super) {
   };
 
   Layer.prototype.pixelAlign = function() {
-    return this.frame = {
-      x: parseInt(this.x),
-      y: parseInt(this.y)
-    };
+    this.x = parseInt(this.x);
+    return this.y = parseInt(this.y);
   };
 
   Layer.define("style", {
@@ -1877,7 +1925,7 @@ exports.Layer = (function(_super) {
         return;
       }
       if (!layer instanceof Layer) {
-        throw "Layer.superLayer needs to be a Layer object";
+        throw Error("Layer.superLayer needs to be a Layer object");
       }
       Utils.domCompleteCancel(this.__insertElement);
       if (this._superLayer) {
@@ -2041,15 +2089,33 @@ exports.Layer = (function(_super) {
   Layer.define("scrollFrame", {
     get: function() {
       return new Frame({
-        x: this._element.scrollLeft,
-        y: this._element.scrollTop,
+        x: this.scrollX,
+        y: this.scrollY,
         width: this.width,
         height: this.height
       });
     },
     set: function(frame) {
-      this._element.scrollLeft = frame.x;
-      return this._element.scrollTop = frame.y;
+      this.scrollX = frame.x;
+      return this.scrollY = frame.y;
+    }
+  });
+
+  Layer.define("scrollX", {
+    get: function() {
+      return this._element.scrollLeft;
+    },
+    set: function(value) {
+      return this._element.scrollLeft = value;
+    }
+  });
+
+  Layer.define("scrollY", {
+    get: function() {
+      return this._element.scrollTop;
+    },
+    set: function(value) {
+      return this._element.scrollTop = value;
     }
   });
 
@@ -2146,10 +2212,8 @@ exports.LayerDraggable = (function(_super) {
     this._touchEnd = __bind(this._touchEnd, this);
     this._touchStart = __bind(this._touchStart, this);
     this._updatePosition = __bind(this._updatePosition, this);
-    this.speed = {
-      x: 1.0,
-      y: 1.0
-    };
+    this.speedX = 1.0;
+    this.speedY = 1.0;
     this._deltas = [];
     this._isDragging = false;
     this.enabled = true;
@@ -2213,8 +2277,8 @@ exports.LayerDraggable = (function(_super) {
       y: touchEvent.clientY - this._start.y
     };
     correctedDelta = {
-      x: delta.x * this.speed.x,
-      y: delta.y * this.speed.y,
+      x: delta.x * this.speedX,
+      y: delta.y * this.speedY,
       t: event.timeStamp
     };
     window.requestAnimationFrame(function() {
@@ -2257,16 +2321,22 @@ exports.LayerDraggable = (function(_super) {
 
 
 },{"./EventEmitter":13,"./Events":14,"./Underscore":22,"./Utils":23}],20:[function(require,module,exports){
-var EventEmitter, LayerStatesIgnoredKeys, _,
+var EventEmitter, Events, LayerStatesIgnoredKeys, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
 _ = require("./Underscore")._;
 
+Events = require("./Events").Events;
+
 EventEmitter = require("./EventEmitter").EventEmitter;
 
 LayerStatesIgnoredKeys = ["ignoreEvents"];
+
+Events.StateWillSwitch = "willSwitch";
+
+Events.StateDidSwitch = "didSwitch";
 
 exports.LayerStates = (function(_super) {
   __extends(LayerStates, _super);
@@ -2293,7 +2363,7 @@ exports.LayerStates = (function(_super) {
       return;
     }
     error = function() {
-      throw "Usage example: layer.states.add(\"someName\", {x:500})";
+      throw Error("Usage example: layer.states.add(\"someName\", {x:500})");
     };
     if (!_.isString(stateName)) {
       error();
@@ -2322,7 +2392,7 @@ exports.LayerStates = (function(_super) {
     if (!this._states.hasOwnProperty(stateName)) {
       throw Error("No such state: '" + stateName + "'");
     }
-    this.emit("willSwitch", this._currentState, stateName, this);
+    this.emit(Events.StateWillSwitch, this._currentState, stateName, this);
     this._previousStates.push(this._currentState);
     this._currentState = stateName;
     if (animationOptions == null) {
@@ -2340,13 +2410,13 @@ exports.LayerStates = (function(_super) {
         continue;
       }
       if (_.isFunction(v)) {
-        v = v();
+        v = v.call(this.layer, this.layer, stateName);
       }
       animationOptions.properties[k] = v;
     }
     animation = this.layer.animate(animationOptions);
     return animation.on("stop", function() {
-      return _this.emit("didSwitch", _.last(_this._previousStates, stateName, _this));
+      return _this.emit(Events.StateDidSwitch, _.last(_this._previousStates), stateName, _this);
     });
   };
 
@@ -2400,7 +2470,7 @@ exports.LayerStates = (function(_super) {
 })(EventEmitter);
 
 
-},{"./EventEmitter":13,"./Underscore":22}],21:[function(require,module,exports){
+},{"./EventEmitter":13,"./Events":14,"./Underscore":22}],21:[function(require,module,exports){
 var filterFormat, _WebkitProperties;
 
 filterFormat = function(value, unit) {
@@ -2426,7 +2496,7 @@ exports.LayerStyle = {
     return layer.opacity;
   },
   overflow: function(layer) {
-    if (layer.scrollX === true || layer.scrollY === true) {
+    if (layer.scrollHorizontal === true || layer.scrollVertical === true) {
       return "auto";
     }
     if (layer.clip === true) {
@@ -2435,7 +2505,7 @@ exports.LayerStyle = {
     return "visible";
   },
   overflowX: function(layer) {
-    if (layer.scrollX === true) {
+    if (layer.scrollHorizontal === true) {
       return "scroll";
     }
     if (layer.clip === true) {
@@ -2444,7 +2514,7 @@ exports.LayerStyle = {
     return "visible";
   },
   overflowY: function(layer) {
-    if (layer.scrollY === true) {
+    if (layer.scrollVertical === true) {
       return "scroll";
     }
     if (layer.clip === true) {
@@ -2650,6 +2720,20 @@ Utils.randomNumber = function(a, b) {
   return Utils.mapRange(Math.random(), 0, 1, a, b);
 };
 
+Utils.labelLayer = function(layer, text, style) {
+  if (style == null) {
+    style = {};
+  }
+  style = _.extend({
+    font: "10px/1em Menlo",
+    lineHeight: "" + layer.height + "px",
+    textAlign: "center",
+    color: "#fff"
+  }, style);
+  layer.style = style;
+  return layer.html = text;
+};
+
 Utils.uuid = function() {
   var chars, digit, output, r, random, _i;
   chars = "0123456789abcdefghijklmnopqrstuvwxyz".split("");
@@ -2797,7 +2881,7 @@ Utils.domLoadDataSync = function(path) {
   }
   data = request.responseText;
   if (!data) {
-    throw "Utils.domLoadDataSync: no data was loaded (url not found?)";
+    throw Error("Utils.domLoadDataSync: no data was loaded (url not found?)");
   }
   return request.responseText;
 };
