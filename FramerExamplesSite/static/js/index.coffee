@@ -1,6 +1,7 @@
 showExample = (exampleName) ->
 	$("#code").attr "src", "code.html?name=#{exampleName}"
-	$("#example").attr "src", "example.html?name=#{exampleName}"	
+	$("#example").attr "src", "example.html?name=#{exampleName}"
+	$("a.download").attr "href", "/static/examples/#{exampleName}.zip"
 
 $(document).ready ->
 	
@@ -9,13 +10,13 @@ $(document).ready ->
 	if exampleName
 		showExample exampleName
 
-		$("a").each ->
+		$(".navigation ul li a").each ->
 			if $(@).attr("href")[1..] == exampleName
 				$(@).addClass "active"
 
-	$("a").click ->
+	$(".navigation ul li a").click ->
 
-		$("a").removeClass "active"
+		$(".navigation ul li a").removeClass "active"
 		$(@).addClass "active"
 
 		exampleName = $(@).attr("href")[1..]
