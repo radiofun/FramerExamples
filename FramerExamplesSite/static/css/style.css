@@ -17,12 +17,11 @@ a {
 }
 
 h1 {
-	font-size: 15px; font-weight: 500;
-	margin-bottom: 30px;
+	font-size: 13px; font-weight: 500;
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	background: #92CEE1;
-	padding: 30px;
+	background: #8ECFEE;
+	padding: 30px 20px;
 	color: #fff;
 }
 
@@ -36,17 +35,25 @@ h1 {
 
 .navigation ul {
 	list-style: none;
-	padding: 0 30px 30px;
 }
 
 .navigation ul li {
-	padding: 15px 0;
 	line-height: 1;
+}
+
+.navigation ul li a {
+	padding: 15px;
+	display: block;
+}
+
+a:hover {
+	background: #fafafa;
 }
 
 .navigation ul li+li {
 	border-top: 1px solid #eee;
 }
+
 
 #code {
 	position: absolute;
