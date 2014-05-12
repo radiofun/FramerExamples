@@ -7,4 +7,12 @@ update%framer:
 convert:
 	python Scripts/coffee2js.py
 
+site:
+	make convert
+	cp -Rf Examples/*.framer FramerExamplesSite/static/examples/
+
+site%upload:
+	cd FramerExamplesSite; cactus deploy
+
+
 .PHONY: update

@@ -6,7 +6,7 @@ import shutil
 def run(command):
 	os.system(command)
 
-path = os.path.join(os.path.dirname(__file__), "..")
+path = os.path.join(os.path.dirname(__file__), "..", "Examples")
 path = os.path.abspath(path)
 
 def downloadFile(url, path):
