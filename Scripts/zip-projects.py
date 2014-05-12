@@ -16,6 +16,12 @@ for fileName in os.listdir(path):
 	if not filePath.endswith(".framer"):
 		continue
 
+	# Copy index.html template
+	shutil.copyfile(
+		os.path.join(os.path.dirname(__file__), "..", "Data", "example.html"),
+		os.path.join(filePath, "index.html"),
+	)
+
 	print "Zipping example project '%s'" % filePath
 
 	run("cd '%s'; zip -r '%s.zip' '%s'" % (path, fileName, fileName))
