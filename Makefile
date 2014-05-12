@@ -9,6 +9,7 @@ convert:
 
 site:
 	make convert
+	rm -Rf FramerExamplesSite/static/examples/*
 	cp -Rf Examples/*.framer FramerExamplesSite/static/examples/
 
 site%upload:
