@@ -120,7 +120,23 @@ a.download {
 	border-radius: 6px;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 640px) {
+#code, #example, .navigation, a {
+	display: none;
+}
 
+body {
+	text-align: center;
+}
+
+body:after {
+	content: "Please visit on a Desktop browser!";
+	display: inline-block;
+	position: relative; top: 60px;
+	text-align: center; z-index: 30;
+	color: #fff;
+	color: rgba(255,255,255,.5);
+	font-size: 13px;
+}
 
 }
