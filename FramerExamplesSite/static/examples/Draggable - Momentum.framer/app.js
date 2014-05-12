@@ -9,6 +9,8 @@ layerA.center();
 
 layerA.draggable.enabled = true;
 
+Utils.labelLayer(layerA, "Drag me");
+
 /* Add an animation to the end of a drag to mimic momentum */
 
 layerA.on(Events.DragEnd, function(event, layer) {
