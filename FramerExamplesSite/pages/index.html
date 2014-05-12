@@ -13,9 +13,16 @@
 		<li><a href="#{{ example.path }}">{{ example.name }}</a></li>
 	{% endfor %}
 	</ul>
+	<a class="framer" href="http://www.framerjs.com">framerjs.com</a>
 </div>
 
 <iframe id="code" name="code" src=""></iframe>
-<iframe id="example" name="example" src=""></iframe>
+<iframe id="example" name="example" src="">
+</iframe>
+
+{% for example in examples %}
+<a class="download" href="/static/examples/{{ example.path }}.zip">Download</a>
+{% endfor %}
+
 </section>
 {% endblock content%}
