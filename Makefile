@@ -18,5 +18,7 @@ site:
 site%upload:
 	cd FramerExamplesSite; cactus deploy
 
+optimize:
+	cd Examples; find . -name "*.png" -exec optipng -o3 {} \;
 
 .PHONY: update
