@@ -4,6 +4,17 @@ getParameterByName = (name) ->
 	results = regex.exec(location.search)
 	(if not results? then "" else decodeURIComponent(results[1].replace(/\+/g, " ")))
 
+loadScript = (path, callback) ->
+	$.ajax
+		url: path
+		dataType: "text",
+		success: (data) ->
+			eval(data)
+			callback(data)
+		error: (err) ->
+			console.log "err", err
+
+
 $(document).ready ->
 
 	exampleName = getParameterByName "name"
@@ -11,8 +22,8 @@ $(document).ready ->
 	# Set the base dir so images load
 	$("head").append $("<base href=\"/static/examples/#{exampleName}/\">")
 
-	# Load the framer associated with this example
-	$.getScript "framer/framer.js", (data) ->
-		# throw err if err
-		$.getScript "app.js", (data) ->
-			# throw err if err
+	$('head').append('<link rel="stylesheet" type="text/css" href="style.css">');
+
+	loadScript "framer/framer.js", ->
+		loadScript "app.js", ->
+
