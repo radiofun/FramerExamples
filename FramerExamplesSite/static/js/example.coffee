@@ -12,6 +12,7 @@ $(document).ready ->
 	$("head").append $("<base href=\"/static/examples/#{exampleName}/\">")
 
 	# Load the framer associated with this example
-	$.getScript "framer/framer.js", ->
-		$.getScript "app.js", (err, data) ->
-			console.log data
+	$.getScript "framer/framer.js", (data) ->
+		# throw err if err
+		$.getScript "app.js", (data) ->
+			# throw err if err

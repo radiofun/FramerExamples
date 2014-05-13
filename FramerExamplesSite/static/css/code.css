@@ -26,6 +26,7 @@ pre.bump {
 
 pre, code {
     font-family: 'Menlo', 'Monaco', Courier, monospace; 
+    tab-width: 4;
 }
 
 pre .comment {

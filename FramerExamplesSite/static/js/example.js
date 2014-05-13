@@ -17,10 +17,8 @@
     var exampleName;
     exampleName = getParameterByName("name");
     $("head").append($("<base href=\"/static/examples/" + exampleName + "/\">"));
-    return $.getScript("framer/framer.js", function() {
-      return $.getScript("app.js", function(err, data) {
-        return console.log(data);
-      });
+    return $.getScript("framer/framer.js", function(data) {
+      return $.getScript("app.js", function(data) {});
     });
   });
 

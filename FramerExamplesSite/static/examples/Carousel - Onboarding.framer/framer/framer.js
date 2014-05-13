@@ -2330,7 +2330,7 @@ exports.LayerDraggable = (function(_super) {
 
 
 },{"./EventEmitter":13,"./Events":14,"./Underscore":22,"./Utils":23}],20:[function(require,module,exports){
-var BaseClass, Events, LayerStatesIgnoredKeys, _,
+var EventEmitter, Events, LayerStatesIgnoredKeys, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -2339,7 +2339,7 @@ _ = require("./Underscore")._;
 
 Events = require("./Events").Events;
 
-BaseClass = require("./BaseClass").BaseClass;
+EventEmitter = require("./EventEmitter").EventEmitter;
 
 LayerStatesIgnoredKeys = ["ignoreEvents"];
 
@@ -2436,12 +2436,6 @@ exports.LayerStates = (function(_super) {
     });
   };
 
-  LayerStates.define("state", {
-    get: function() {
-      return this._currentState;
-    }
-  });
-
   LayerStates.prototype.states = function() {
     return _.clone(this._orderedStates);
   };
@@ -2482,10 +2476,10 @@ exports.LayerStates = (function(_super) {
 
   return LayerStates;
 
-})(BaseClass);
+})(EventEmitter);
 
 
-},{"./BaseClass":8,"./Events":14,"./Underscore":22}],21:[function(require,module,exports){
+},{"./EventEmitter":13,"./Events":14,"./Underscore":22}],21:[function(require,module,exports){
 var filterFormat, _WebkitProperties;
 
 filterFormat = function(value, unit) {

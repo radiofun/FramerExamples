@@ -1,5 +1,5 @@
 (function() {
-  var getParameterByName;
+  var getParameterByName, loadCS, loadJS, _current;
 
   getParameterByName = function(name) {
     var regex, results;
@@ -13,10 +13,30 @@
     }
   };
 
-  $(document).ready(function() {
-    var exampleName;
-    exampleName = getParameterByName("name");
-    $.ajax({
+  _current = null;
+
+  loadCS = function(exampleName) {
+    _current = "cs";
+    $(".learn").show();
+    $(".toggle").html("CoffeeScript");
+    $("#dropdown a").html("JavaScript");
+    return $.ajax({
+      url: "/static/examples/" + exampleName + "/app.coffee",
+      dataType: "text",
+      success: function(data) {
+        return Rainbow.color(data, "coffeescript", function(result) {
+          return $("code").html(result.replace(/\t/g, "  "));
+        });
+      }
+    });
+  };
+
+  loadJS = function(exampleName) {
+    _current = "js";
+    $(".learn").hide();
+    $(".toggle").html("JavaScript");
+    $("#dropdown a").html("CoffeeScript");
+    return $.ajax({
       url: "/static/examples/" + exampleName + "/app.js",
       dataType: "text",
       success: function(data) {
@@ -25,14 +45,30 @@
         });
       }
     });
+  };
+
+  $(document).ready(function() {
+    var exampleName;
+    exampleName = getParameterByName("name");
+    loadCS(exampleName);
     $(".toggle").click(function() {
       $(this).toggleClass("active-toggle");
       return $("#dropdown").toggleClass("active");
     });
-    return $(".learn").click(function() {
+    $(".learn").click(function() {
       $(this).toggleClass("active");
       $("#explain").toggleClass("active");
       return $("pre").toggleClass("bump");
+    });
+    return $("#dropdown").click(function() {
+      if (_current === "cs") {
+        loadJS(exampleName);
+      } else {
+        loadCS(exampleName);
+      }
+      $(".toggle").toggleClass("active-toggle");
+      $("#dropdown").toggleClass("active");
+      return console.log("hello");
     });
   });
 
