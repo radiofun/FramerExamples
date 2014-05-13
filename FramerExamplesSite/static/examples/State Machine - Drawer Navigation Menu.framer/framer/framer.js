@@ -968,8 +968,6 @@ exports.Config = {
     "display": "block",
     "position": "absolute",
     "-webkit-box-sizing": "border-box",
-    "-webkit-transform-style": "preserve-3d",
-    "-webkit-backface-visibility": "visible",
     "background-repeat": "no-repeat",
     "background-size": "cover",
     "-webkit-overflow-scrolling": "touch"
@@ -1094,7 +1092,8 @@ Originals = {
     height: 100
   },
   Animation: {
-    curve: "spring(500,30,0)"
+    curve: "linear",
+    time: 1
   }
 };
 
@@ -2330,7 +2329,7 @@ exports.LayerDraggable = (function(_super) {
 
 
 },{"./EventEmitter":13,"./Events":14,"./Underscore":22,"./Utils":23}],20:[function(require,module,exports){
-var EventEmitter, Events, LayerStatesIgnoredKeys, _,
+var BaseClass, Events, LayerStatesIgnoredKeys, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
@@ -2339,7 +2338,7 @@ _ = require("./Underscore")._;
 
 Events = require("./Events").Events;
 
-EventEmitter = require("./EventEmitter").EventEmitter;
+BaseClass = require("./BaseClass").BaseClass;
 
 LayerStatesIgnoredKeys = ["ignoreEvents"];
 
@@ -2360,6 +2359,7 @@ exports.LayerStates = (function(_super) {
     this.add("default", this.layer.properties);
     this._currentState = "default";
     this._previousStates = [];
+    LayerStates.__super__.constructor.apply(this, arguments);
   }
 
   LayerStates.prototype.add = function(stateName, properties) {
@@ -2436,6 +2436,18 @@ exports.LayerStates = (function(_super) {
     });
   };
 
+  LayerStates.define("state", {
+    get: function() {
+      return this._currentState;
+    }
+  });
+
+  LayerStates.define("current", {
+    get: function() {
+      return this._currentState;
+    }
+  });
+
   LayerStates.prototype.states = function() {
     return _.clone(this._orderedStates);
   };
@@ -2476,10 +2488,10 @@ exports.LayerStates = (function(_super) {
 
   return LayerStates;
 
-})(EventEmitter);
+})(BaseClass);
 
 
-},{"./EventEmitter":13,"./Events":14,"./Underscore":22}],21:[function(require,module,exports){
+},{"./BaseClass":8,"./Events":14,"./Underscore":22}],21:[function(require,module,exports){
 var filterFormat, _WebkitProperties;
 
 filterFormat = function(value, unit) {

@@ -8,7 +8,7 @@ imageLayer = new Layer({
   y: 0,
   width: 128,
   height: 128,
-  image: "images/icon.png"
+  image: "images/Icon.png"
 });
 
 imageLayer.center();

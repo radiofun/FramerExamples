@@ -1,7 +1,7 @@
 # Keyboard Shortcuts Example
 
 # First, we'll set up a layer and some states
-imageLayer = new Layer x:0, y:0, width:128, height:128, image:"images/icon.png"
+imageLayer = new Layer x:0, y:0, width:128, height:128, image:"images/Icon.png"
 imageLayer.center()
 imageLayer.states.add
 	second: {y:100, scale:0.6, rotationZ:100}
