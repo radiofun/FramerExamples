@@ -21,5 +21,6 @@ $(document).ready ->
 		$("#dropdown").toggleClass("active")
 		
 	$(".learn").click ->	
+		$(this).toggleClass("active")
 		$("#explain").toggleClass("active")	
 		$("pre").toggleClass("bump")	

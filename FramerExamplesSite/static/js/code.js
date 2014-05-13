@@ -30,6 +30,7 @@
       return $("#dropdown").toggleClass("active");
     });
     return $(".learn").click(function() {
+      $(this).toggleClass("active");
       $("#explain").toggleClass("active");
       return $("pre").toggleClass("bump");
     });
