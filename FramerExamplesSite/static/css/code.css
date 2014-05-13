@@ -88,16 +88,27 @@ a {
 	border-radius: 4px; 
 	cursor: pointer; cursor: hand;
 	display: inline-block;
+	width: 141px;
 }
 
 .toggle:after {
 	content: ""; display: inline-block;
-	width: 0; margin-left: 10px; position: relative;
-	height: 0; top: -2px;
+	width: 0;  position: relative;
+	height: 0; top: 5px;
+	float: right;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
 	border-top: 5px solid #fff;
 }
+
+.toggle.active-toggle:after {
+	border-left: 5px solid transparent;
+	border-right: 5px solid transparent;
+	border-bottom: 5px solid #fff;
+	border-top: 5px solid transparent;
+	top: 0;
+}
+
 
 #toggle-section {
 	position: relative;
@@ -107,7 +118,7 @@ a {
 #dropdown {
 	list-style: none;	
 	background: #40464f;
-	border-radius: 0 0 6px 6px;
+	border-radius: 0 0 4px 4px;
 	width: 141px;
 	padding: 0;
 	position: absolute; top:20px; left: 0;
@@ -129,16 +140,9 @@ a {
 }
 
 .toggle.active-toggle {
-	border-radius: 6px 6px 0 0;
+	border-radius: 4px 4px 0 0;
 	background: #343941; box-shadow: inset 0 0 2px #343941;
 	position: relative; z-index: 10;
-}
-
-.toggle.active-toggle:after {
-	border-left: 5px solid transparent;
-	border-right: 5px solid transparent;
-	border-bottom: 5px solid #fff;
-	border-top: 5px solid transparent;
 }
 
 #dropdown li a {
