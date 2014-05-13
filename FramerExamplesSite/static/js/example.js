@@ -31,7 +31,7 @@
     var exampleName;
     exampleName = getParameterByName("name");
     $("head").append($("<base href=\"/static/examples/" + exampleName + "/\">"));
-    $('head').append('<link rel="stylesheet" type="text/css" href="style.css">');
+    $('head').append($("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">"));
     return loadScript("framer/framer.js", function() {
       return loadScript("app.js", function() {});
     });
