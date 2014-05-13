@@ -13,3 +13,12 @@ body {
 	font: 28px/1em "Helvetica";
 	color: #FFF;
 }
+
+@media screen and (max-height: 900px) {
+#FramerRoot {
+	zoom: 0.5;
+	position: absolute;
+	top: 1px;
+	left: 1px;
+}
+}
