@@ -1,5 +1,5 @@
 ;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var AnimatorClasses, BezierCurveAnimator, Config, EventEmitter, Frame, LinearAnimator, SpringDHOAnimator, SpringRK4Animator, Utils, _, _runningAnimations,
+var AnimatorClasses, BezierCurveAnimator, Config, Defaults, EventEmitter, Frame, LinearAnimator, SpringDHOAnimator, SpringRK4Animator, Utils, _, _runningAnimations,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -9,6 +9,8 @@ _ = require("./Underscore")._;
 Utils = require("./Utils");
 
 Config = require("./Config").Config;
+
+Defaults = require("./Defaults").Defaults;
 
 EventEmitter = require("./EventEmitter").EventEmitter;
 
@@ -47,6 +49,7 @@ exports.Animation = (function(_super) {
       options = {};
     }
     this.start = __bind(this.start, this);
+    options = Defaults.getDefaults("Animation", options);
     Animation.__super__.constructor.call(this, options);
     this.options = Utils.setDefaultProperties(options, {
       layer: null,
@@ -227,7 +230,7 @@ exports.Animation = (function(_super) {
 })(EventEmitter);
 
 
-},{"./Animators/BezierCurveAnimator":4,"./Animators/LinearAnimator":5,"./Animators/SpringDHOAnimator":6,"./Animators/SpringRK4Animator":7,"./Config":10,"./EventEmitter":13,"./Frame":15,"./Underscore":22,"./Utils":23}],2:[function(require,module,exports){
+},{"./Animators/BezierCurveAnimator":4,"./Animators/LinearAnimator":5,"./Animators/SpringDHOAnimator":6,"./Animators/SpringRK4Animator":7,"./Config":10,"./Defaults":12,"./EventEmitter":13,"./Frame":15,"./Underscore":22,"./Utils":23}],2:[function(require,module,exports){
 var AnimationLoop, AnimationLoopIndexKey, Config, EventEmitter, Utils, _;
 
 _ = require("./Underscore")._;
@@ -854,15 +857,15 @@ compatWarning = function(msg) {
   return console.warn(msg);
 };
 
-compatProperty = function(name) {
+compatProperty = function(name, originalName) {
   return {
     exportable: false,
     get: function() {
-      compatWarning("" + name + " is a deprecated property");
+      compatWarning("" + originalName + " is a deprecated property");
       return this[name];
     },
     set: function(value) {
-      compatWarning("" + name + " is a deprecated property");
+      compatWarning("" + originalName + " is a deprecated property");
       return this[name] = value;
     }
   };
@@ -883,11 +886,11 @@ CompatLayer = (function(_super) {
     CompatLayer.__super__.constructor.call(this, options);
   }
 
-  CompatLayer.define("superView", compatProperty("superLayer"));
+  CompatLayer.define("superView", compatProperty("superLayer", "superView"));
 
-  CompatLayer.define("subViews", compatProperty("subLayers"));
+  CompatLayer.define("subViews", compatProperty("subLayers", "subViews"));
 
-  CompatLayer.define("siblingViews", compatProperty("siblingLayers"));
+  CompatLayer.define("siblingViews", compatProperty("siblingLayers", "siblingViews"));
 
   addSubView = function(layer) {
     return this.addSubLayer(layer);
@@ -958,10 +961,15 @@ Utils = require("./Utils");
 
 exports.Config = {
   targetFPS: 60,
+  rootBaseCSS: {
+    "-webkit-perspective": 1000
+  },
   layerBaseCSS: {
     "display": "block",
     "position": "absolute",
     "-webkit-box-sizing": "border-box",
+    "-webkit-transform-style": "preserve-3d",
+    "-webkit-backface-visibility": "visible",
     "background-repeat": "no-repeat",
     "background-size": "cover",
     "-webkit-overflow-scrolling": "touch"
@@ -1108,7 +1116,7 @@ exports.Defaults = {
     return options;
   },
   reset: function() {
-    return Framer.Defaults = _.clone(Originals);
+    return window.Framer.Defaults = _.clone(Originals);
   }
 };
 
@@ -1379,9 +1387,9 @@ require("./Compat");
 
 Defaults = (require("./Defaults")).Defaults;
 
-Defaults.reset();
-
 Framer.resetDefaults = Defaults.reset;
+
+Framer.resetDefaults();
 
 
 },{"./Animation":1,"./AnimationLoop":2,"./Animators/BezierCurveAnimator":4,"./Animators/LinearAnimator":5,"./Animators/SpringDHOAnimator":6,"./Animators/SpringRK4Animator":7,"./BaseClass":8,"./Compat":9,"./Config":10,"./Debug":11,"./Defaults":12,"./Events":14,"./Frame":15,"./Importer":17,"./Layer":18,"./LayerStyle":21,"./Underscore":22,"./Utils":23}],17:[function(require,module,exports){
@@ -1843,6 +1851,7 @@ exports.Layer = (function(_super) {
     if (!_RootElement) {
       _RootElement = document.createElement("div");
       _RootElement.id = "FramerRoot";
+      _.extend(_RootElement.style, Config.rootBaseCSS);
       document.body.appendChild(_RootElement);
     }
     return _RootElement.appendChild(this._element);
