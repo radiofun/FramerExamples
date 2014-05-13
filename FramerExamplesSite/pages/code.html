@@ -15,10 +15,30 @@
 	<script src="{% static '/js/rainbow.linenumbers.min.js' %}"></script>
 	<script src="{% static '/js/language/javascript.js' %}"></script>
 	<script src="{% static '/js/language/coffeescript.js' %}"></script>
-	
+	<!-- Colfax Typeface -->
+	<script type="text/javascript" src="//use.typekit.net/ivi1pzu.js"></script>
+	<script type="text/javascript">Typekit.load();</script>
 	
 </head>
 <body>
+<header id="header">
+
+
+<section id="toggle-section">
+<a class="toggle">Coffeescript</a>
+<ul id="dropdown" class="clearfix">
+<li><a href="#">Javascript</a></li>
+</ul>
+</section>
+
+<a href="#" class="learn">What is CoffeeScript?</a>
+
+<section id="explain">
+<p>CoffeeScript is a little language that compiles into JavaScript. It exposes the good parts of JavaScript in a simple way.</p>
+<a target="_blank" href="http://coffeescript.org">Learn more</a>
+</section>
+
+</header>
 <pre><code data-language="javascript"></code></pre>
 </body>
 </html>

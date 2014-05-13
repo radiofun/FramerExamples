@@ -14,3 +14,12 @@ $(document).ready ->
 		success: (data) ->
 			Rainbow.color data, "javascript", (result) ->
 				$("code").html result
+
+	
+	$(".toggle").click ->	
+		$(this).toggleClass("active-toggle")
+		$("#dropdown").toggleClass("active")
+		
+	$(".learn").click ->	
+		$("#explain").toggleClass("active")	
+		$("pre").toggleClass("bump")	
