@@ -57,8 +57,8 @@ PSD.bobbleJosh.on Events.DragEnd, ->
 # of the distance you have moved. You can set this on
 # both X and Y, and the values can be different.
 PSD.bobbleKayleigh.draggable.enabled = true
-PSD.bobbleKayleigh.draggable.speed.x = 0.6
-PSD.bobbleKayleigh.draggable.speed.y = 0.6
+PSD.bobbleKayleigh.draggable.speedX = 0.6
+PSD.bobbleKayleigh.draggable.speedY = 0.6
 
 # The final example shows how to add dynamic resistance
 # to a layer. This is a bit more advanced, but still not
@@ -106,8 +106,8 @@ PSD.bobbleKeeg.on Events.DragMove, (event) ->
 	else
 		speedX = Utils.mapRange(event.x, windowWidth, initMidX, 0.5, 1)
 	# Set the speeds
-	PSD.bobbleKeeg.draggable.speed.y = speedY
-	PSD.bobbleKeeg.draggable.speed.x = speedX
+	PSD.bobbleKeeg.draggable.speedY = speedY
+	PSD.bobbleKeeg.draggable.speedX = speedX
 
 # When the drag is finished, snap back to initial position	
 PSD.bobbleKeeg.on Events.DragEnd, ->

@@ -102,9 +102,9 @@ both X and Y, and the values can be different. */
 
 PSD.bobbleKayleigh.draggable.enabled = true;
 
-PSD.bobbleKayleigh.draggable.speed.x = 0.6;
+PSD.bobbleKayleigh.draggable.speedX = 0.6;
 
-PSD.bobbleKayleigh.draggable.speed.y = 0.6;
+PSD.bobbleKayleigh.draggable.speedY = 0.6;
 
 /* The final example shows how to add dynamic resistance
 to a layer. This is a bit more advanced, but still not
@@ -168,8 +168,8 @@ PSD.bobbleKeeg.on(Events.DragMove, function(event) {
   }
 
   /* Set the speeds */
-  PSD.bobbleKeeg.draggable.speed.y = speedY;
-  return PSD.bobbleKeeg.draggable.speed.x = speedX;
+  PSD.bobbleKeeg.draggable.speedY = speedY;
+  return PSD.bobbleKeeg.draggable.speedX = speedX;
 });
 
 /* When the drag is finished, snap back to initial position */
