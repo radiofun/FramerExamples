@@ -40,3 +40,5 @@ app.tmp.coffee
 # NPM
 ######################
 node_modules/
+
+*.espressostorage
