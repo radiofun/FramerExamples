@@ -23,7 +23,8 @@
         return callback(data);
       },
       error: function(err) {
-        return console.log("err", err);
+        console.log("err", err);
+        return callback(err);
       }
     });
   };

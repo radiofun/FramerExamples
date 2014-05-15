@@ -13,6 +13,7 @@ loadScript = (path, callback) ->
 			callback(data)
 		error: (err) ->
 			console.log "err", err
+			callback(err)
 
 
 $(document).ready ->
