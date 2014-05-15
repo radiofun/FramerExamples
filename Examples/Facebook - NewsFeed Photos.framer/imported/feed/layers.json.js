@@ -1,4 +1,5 @@
-[
+window.__imported__ = window.__imported__ || {};
+window.__imported__["Feed/layers.json.js"] = [
   {
     "name": "Phone",
     "layerFrame": {
