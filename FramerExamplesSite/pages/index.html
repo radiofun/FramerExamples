@@ -5,20 +5,26 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script></script>
 <script src="{% static '/js/index.js' %}"></script>
 
-<section id="wrapper">
-<div class="navigation">
-	<h1><a href="http://www.framerjs.com">Framer</a> Examples</h1>
-	<ul>
-	{% for example in examples %}
-		<li><a href="#{{ example.path }}">{{ example.name }}</a></li>
-	{% endfor %}
-	</ul>
+
+<div id="right-section">
+	<section class="padding">
+		<iframe id="code" name="code" src=""></iframe>
+		<div id="example-wrapper"><iframe id="example" name="example" src=""></iframe></div>
+	</section>
 </div>
 
-<iframe id="code" name="code" src=""></iframe>
-<iframe id="example" name="example" src=""></iframe>
+<div class="navigation">
+	<section class="padding">
+		<h1><a href="http://www.framerjs.com">Framer</a> Examples</h1>
+		<ul>
+		{% for example in examples %}
+			<li><a href="#{{ example.path }}">{{ example.name }}</a></li>
+		{% endfor %}
+		</ul>
+		<a class="submit" href="https://github.com/koenbok/FramerExamples">Submit your own</a>
+	</section>
+</div>
 
-<a class="download" href="#">Download .zip</a>
+<a class="download" href="#">Download</a>
 
-</section>
 {% endblock content%}
