@@ -49,10 +49,6 @@ $(document).ready ->
 		$(this).toggleClass("active-toggle")
 		$("#dropdown").toggleClass("active")
 		
-	$(".learn").click ->	
-		$(this).toggleClass("active")
-		$("#explain").toggleClass("active")	
-		$("pre").toggleClass("bump")
 
 	$("#dropdown").click ->
 

@@ -55,11 +55,6 @@
       $(this).toggleClass("active-toggle");
       return $("#dropdown").toggleClass("active");
     });
-    $(".learn").click(function() {
-      $(this).toggleClass("active");
-      $("#explain").toggleClass("active");
-      return $("pre").toggleClass("bump");
-    });
     return $("#dropdown").click(function() {
       if (_current === "cs") {
         loadJS(exampleName);
