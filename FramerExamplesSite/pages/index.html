@@ -1,15 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
+<section id="topbar"><img class="2x" src="/static/images/icon-arrow.png"></section>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script></script>
 <script src="{% static '/js/index.js' %}"></script>
+<script src="{% static '/js/main.js' %}"></script>
 
 
 <div id="right-section">
 	<section class="padding">
 		<iframe id="code" name="code" src=""></iframe>
-		<div id="example-wrapper"><iframe id="example" name="example" src=""></iframe></div>
+		<iframe id="example" name="example" src=""></iframe>
 	</section>
 </div>
 
@@ -24,6 +26,11 @@
 		<a class="submit" href="https://github.com/koenbok/FramerExamples">Submit your own</a>
 	</section>
 </div>
+
+<section id="zoom-toggle-section">
+	<a href="#" class="zoom-toggle">2x</a>
+	<a href="#" class="zoom-toggle-two">1x</a>	
+</section>
 
 <a class="download" href="#">Download</a>
 

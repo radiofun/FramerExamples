@@ -62,8 +62,7 @@
         loadCS(exampleName);
       }
       $(".toggle").toggleClass("active-toggle");
-      $("#dropdown").toggleClass("active");
-      return console.log("hello");
+      return $("#dropdown").toggleClass("active");
     });
   });
 

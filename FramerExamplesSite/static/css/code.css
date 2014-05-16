@@ -152,8 +152,8 @@ a {
 }
 
 a.learn {
-	float: right;
-	margin: 12px 0px 0 0;
+	float: left;
+	margin: 12px 0 0 20px;
 	font-size: 13px;
 	color: #545a63;
 	font-weight: 500;
@@ -161,19 +161,6 @@ a.learn {
 
 a.learn:hover { color: #fff; }
 a.learn.active { color: #545a63; }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

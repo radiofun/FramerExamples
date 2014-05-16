@@ -59,6 +59,4 @@ $(document).ready ->
 
 		$(".toggle").toggleClass("active-toggle")
 		$("#dropdown").toggleClass("active")
-
-
-		console.log "hello"
+		

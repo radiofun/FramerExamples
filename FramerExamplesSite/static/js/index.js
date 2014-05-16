@@ -18,11 +18,33 @@
         }
       });
     }
-    return $(".navigation ul li a").click(function() {
+    $(".navigation ul li a").click(function() {
       $(".navigation ul li a").removeClass("active");
       $(this).addClass("active");
       exampleName = $(this).attr("href").slice(1);
-      return showExample(exampleName);
+      showExample(exampleName);
+      $(".navigation").removeClass("appear");
+      return $('#topbar').removeClass("active");
+    });
+    $('#topbar img').click(function() {
+      $(".navigation").toggleClass("appear");
+      return $('#topbar').toggleClass("active");
+    });
+    $(".zoom-toggle").click(function(event) {
+      event.preventDefault();
+      $(this).removeClass("inactive");
+      $(".zoom-toggle-two").removeClass("active");
+      $(this).addClass("active");
+      $(".zoom-toggle-two").addClass("inactive");
+      return $('#example').contents().find('#FramerRoot').removeClass('half');
+    });
+    return $(".zoom-toggle-two").click(function(event) {
+      event.preventDefault();
+      $(this).removeClass("inactive");
+      $(this).addClass("active");
+      $(".zoom-toggle").addClass("inactive");
+      $("#example").toggleClass("half");
+      return $('#example').contents().find('#FramerRoot').addClass('half');
     });
   });
 
