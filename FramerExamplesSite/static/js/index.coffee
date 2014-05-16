@@ -21,5 +21,27 @@ $(document).ready ->
 
 		exampleName = $(@).attr("href")[1..]
 		showExample exampleName
+		
+		$(".navigation").removeClass "appear"
+		$('#topbar').removeClass "active"
 
 
+	$('#topbar img').click ->
+	    $(".navigation").toggleClass "appear"
+	    $('#topbar').toggleClass "active"
+	    
+	$(".zoom-toggle").click (event) ->
+		event.preventDefault()
+		$(this).removeClass("inactive")	
+		$(".zoom-toggle-two").removeClass("active")
+		$(this).addClass("active")
+		$(".zoom-toggle-two").addClass("inactive")
+		$('#example').contents().find('#FramerRoot').removeClass('half');
+		
+	$(".zoom-toggle-two").click (event) ->
+		event.preventDefault()
+		$(this).removeClass("inactive")
+		$(this).addClass("active")
+		$(".zoom-toggle").addClass("inactive")
+		$("#example").toggleClass("half")
+		$('#example').contents().find('#FramerRoot').addClass('half');

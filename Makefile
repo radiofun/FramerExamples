@@ -1,13 +1,12 @@
+all: build
+
 update:
 	python Scripts/update-framer.py
-
-update%framer:
-	make update:framer
 
 convert:
 	python Scripts/coffee2js.py
 
-site:
+build:
 	make convert
 
 	rm -Rf FramerExamplesSite/static/examples/*
@@ -15,7 +14,7 @@ site:
 
 	python Scripts/zip-projects.py
 
-site%upload:
+upload:
 	cd FramerExamplesSite; cactus deploy
 
 optimize:

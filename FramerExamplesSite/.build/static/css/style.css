@@ -7,7 +7,6 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 
 html, body {
 	height: 100%;
-
 }
 
 body {
@@ -75,7 +74,6 @@ h1 a {
 a.active {
 	font-weight: 500;
 	color: #333;
-	position: relative;
 }
 
 #right-section {
@@ -93,7 +91,7 @@ a.active {
 	background: #282C33; 
 	border: none;
 	border-right: 1px solid #343840;
-	min-width: 300px;
+	min-width: 300px; z-index: 0;
 }
 
 #example {
@@ -101,7 +99,7 @@ a.active {
 	position: absolute; top: 0; right: 0;
 	background-color: #282C33;
 	border: none;
-	min-width: 400px;
+	min-width: 400px; 
 }
 
 a.download {
@@ -149,25 +147,126 @@ a.submit:active {
 	border-radius: 6px;
 }
 
-@media only screen and (max-width: 640px) {
-#code, #example, .navigation, a {
+#topbar {
 	display: none;
 }
 
-body {
-	text-align: center;
+
+
+@media screen and (max-width: 640px) {
+::-webkit-scrollbar { width: 0; display: none; }
+
+iframe#code, a.submit, a.download  { display: none; }
+#right-section { float: none; }
+#right-section .padding { margin: 0; }
+
+#example {
+	width: 100%; max-width: 640px; min-width: auto;
+	z-index: 300; max-height: 100%; 
+	position: relative; top: 0; left: 0;
 }
 
-body:after {
-	content: "Please visit on a Desktop browser!";
-	display: inline-block;
-	position: relative; top: 60px;
-	text-align: center; z-index: 30;
-	color: #fff;
-	color: rgba(255,255,255,.5);
+.navigation {
+	position: absolute; top: 0; left: 0; width: 100%; margin: 0; max-height: 0; overflow: hidden; visibility: hidden;
+	font-size: 26px; 
+}
+
+.navigation.appear {
+	max-height: 4000px; overflow: visible; visibility: visible; 
+	background: #fff; 
+	padding-top:92px;
+	box-shadow: inset 0 92px 0 #000;
+}
+
+.navigation.appear ul li a {
+	padding: 20px 20px 18px 20px;
+}
+
+.navigation ul li {
+	display: none;
+}
+
+#topbar {
+	display: block; width: 100%;
+	position: relative; top: 0; z-index: 44440; left: 0;
+	padding: 14px; 
+	background:transparent; position: fixed;
+}
+
+#topbar img {
+	position: absolute; top: 18px; left: 14px;
+	height: auto; width: 56px;
+	cursor: hand; cursor: pointer;
+	z-index: 999;
+}
+
+#topbar.active img {
+	-moz-transform: rotate(180deg);
+	-webkit-transform: rotate(180deg);
+	-o-transform: rotate(180deg);
+	-ms-transform: rotate(180deg);
+	transform: rotate(180deg);
+}
+
+.navigation h1 {
+	display: none;
+}
+}
+
+.show {
+	display: block !important;
+}
+
+/* ZOOM TOGGLE */
+#zoom-toggle-section {
+	position: absolute;
+	top: 20px;
+	left: 40%; margin-left: 60px;
 	font-size: 13px;
+	font-weight: 500;
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background: #343941;
+	border-radius: 4px;
+	padding: 2px;
+	cursor: pointer; cursor: hand; 
 }
 
+#zoom-toggle-section a {
+	font-weight: 500;
+	cursor: pointer; cursor: hand; 
+}
+
+.zoom-toggle {
+	color: #fff;
+	display: inline-block;
+	border-radius: 2px; 
+	padding: 6px 12px 5px;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.zoom-toggle-two {
+	display: inline-block;
+	border-radius: 2px; 
+	padding: 6px 12px 5px;
+	background: #1c1f24;
+	color: rgba(255,255,255,0.5);
+	margin-left: -2px;
+}
+
+.zoom-toggle.active, .zoom-toggle-two.active {
+	background: transparent;
+	color: #fff;
+}
+
+.zoom-toggle.inactive, .zoom-toggle-two.inactive  {
+	background: #1c1f24;
+	color: rgba(255,255,255,0.5);
 }
 
 

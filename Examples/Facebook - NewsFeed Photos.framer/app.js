@@ -5,7 +5,7 @@
 /* Import the generator sketch assets */
 var animating, importedLayers, setup, unzoomPhoto, zoomPhoto;
 
-importedLayers = Framer.Importer.load("imported/Feed");
+importedLayers = Framer.Importer.load("imported/feed");
 
 /* Use the Framer library
 https://github.com/facebook/shortcuts-for-framer */

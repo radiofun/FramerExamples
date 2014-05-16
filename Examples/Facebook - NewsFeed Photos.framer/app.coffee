@@ -3,7 +3,7 @@
 #  Cemre Gungor - 2014
 
 # Import the generator sketch assets
-importedLayers = Framer.Importer.load("imported/Feed")
+importedLayers = Framer.Importer.load("imported/feed")
 
 # Use the Framer library
 # https://github.com/facebook/shortcuts-for-framer
