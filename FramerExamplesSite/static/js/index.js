@@ -37,7 +37,8 @@
       $(".zoom-toggle-two").removeClass("active");
       $(this).addClass("active");
       $(".zoom-toggle-two").addClass("inactive");
-      return example.removeClass('half');
+      exampleFrame.removeClass('half');
+      return $("#example").hide();
     });
     return $(".zoom-toggle-two").click(function(event) {
       event.preventDefault();

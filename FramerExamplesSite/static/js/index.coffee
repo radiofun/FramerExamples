@@ -38,7 +38,8 @@ $(document).ready ->
 		$(".zoom-toggle-two").removeClass("active")
 		$(this).addClass("active")
 		$(".zoom-toggle-two").addClass("inactive")
-		example.removeClass('half');
+		exampleFrame.removeClass('half');
+		$("#example").hide()
 		
 	$(".zoom-toggle-two").click (event) ->
 		event.preventDefault()
