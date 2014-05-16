@@ -8,7 +8,7 @@
   };
 
   $(document).ready(function() {
-    var exampleName;
+    var exampleFrame, exampleName;
     exampleName = window.location.hash.slice(1);
     if (exampleName) {
       showExample(exampleName);
@@ -30,21 +30,21 @@
       $(".navigation").toggleClass("appear");
       return $('#topbar').toggleClass("active");
     });
+    exampleFrame = $('#example').contents().find("#FramerRoot");
     $(".zoom-toggle").click(function(event) {
       event.preventDefault();
       $(this).removeClass("inactive");
       $(".zoom-toggle-two").removeClass("active");
       $(this).addClass("active");
       $(".zoom-toggle-two").addClass("inactive");
-      return $('#example').contents().find('#FramerRoot').removeClass('half');
+      return example.removeClass('half');
     });
     return $(".zoom-toggle-two").click(function(event) {
       event.preventDefault();
       $(this).removeClass("inactive");
       $(this).addClass("active");
       $(".zoom-toggle").addClass("inactive");
-      $("#example").toggleClass("half");
-      return $('#example').contents().find('#FramerRoot').addClass('half');
+      return exampleFrame.addClass('half');
     });
   });
 

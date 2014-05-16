@@ -30,18 +30,21 @@ $(document).ready ->
 	    $(".navigation").toggleClass "appear"
 	    $('#topbar').toggleClass "active"
 	    
+	exampleFrame = $('#example').contents().find("#FramerRoot")
+
 	$(".zoom-toggle").click (event) ->
 		event.preventDefault()
 		$(this).removeClass("inactive")	
 		$(".zoom-toggle-two").removeClass("active")
 		$(this).addClass("active")
 		$(".zoom-toggle-two").addClass("inactive")
-		$('#example').contents().find('#FramerRoot').removeClass('half');
+		example.removeClass('half');
 		
 	$(".zoom-toggle-two").click (event) ->
 		event.preventDefault()
 		$(this).removeClass("inactive")
 		$(this).addClass("active")
 		$(".zoom-toggle").addClass("inactive")
-		$("#example").toggleClass("half")
-		$('#example').contents().find('#FramerRoot').addClass('half');
+		exampleFrame.addClass('half');
+	
+		

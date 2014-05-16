@@ -100,6 +100,7 @@ a.active {
 	background-color: #282C33;
 	border: none;
 	min-width: 400px; 
+	z-index: 50;
 }
 
 a.download {
@@ -217,56 +218,8 @@ iframe#code, a.submit, a.download  { display: none; }
 	display: block !important;
 }
 
-/* ZOOM TOGGLE */
-#zoom-toggle-section {
-	position: absolute;
-	top: 20px;
-	left: 40%; margin-left: 60px;
-	font-size: 13px;
-	font-weight: 500;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	background: #343941;
-	border-radius: 4px;
-	padding: 2px;
-	cursor: pointer; cursor: hand; 
-}
 
-#zoom-toggle-section a {
-	font-weight: 500;
-	cursor: pointer; cursor: hand; 
+.half {
+	zoom: 0.5; 
 }
-
-.zoom-toggle {
-	color: #fff;
-	display: inline-block;
-	border-radius: 2px; 
-	padding: 6px 12px 5px;
-	cursor: pointer;
-	cursor: hand;
-}
-
-.zoom-toggle-two {
-	display: inline-block;
-	border-radius: 2px; 
-	padding: 6px 12px 5px;
-	background: #1c1f24;
-	color: rgba(255,255,255,0.5);
-	margin-left: -2px;
-}
-
-.zoom-toggle.active, .zoom-toggle-two.active {
-	background: transparent;
-	color: #fff;
-}
-
-.zoom-toggle.inactive, .zoom-toggle-two.inactive  {
-	background: #1c1f24;
-	color: rgba(255,255,255,0.5);
-}
-
 
