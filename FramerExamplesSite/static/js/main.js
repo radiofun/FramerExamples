@@ -46,7 +46,7 @@ $( document ).ready(function() {
 		$('.navigation ul li:contains("Google Now")').addClass('show');
 		$('.navigation ul li:contains("Drawer")').addClass('show');
 		$('.navigation ul li:contains("Pull")').addClass('show');
-		$('.navigation ul li:contains("Momentum 2")').addClass('show');
+		$('.navigation ul li:contains("Snap")').addClass('show');
 	}
 });
 
