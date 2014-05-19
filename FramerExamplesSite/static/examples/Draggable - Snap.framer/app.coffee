@@ -1,5 +1,5 @@
 # Create a new layer and center it
-layerA = new Layer width:128, height:128
+layerA = new Layer width:256, height:256
 layerA.center()
 
 originX = layerA.x
@@ -9,7 +9,7 @@ layerA.image = "https://pbs.twimg.com/profile_images/442744361017540608/NCEct4yy
 
 layerA.style =
 	borderRadius: '50%',
-	boxShadow: 'inset 0 0 0 10px #fff, 0 4px 12px rgba(0,0,0,0.4)'
+	boxShadow: 'inset 0 0 0 8px #fff, 0 4px 12px rgba(0,0,0,0.4)'
 
 # Make the layer draggable
 layerA.draggable.enabled = true
