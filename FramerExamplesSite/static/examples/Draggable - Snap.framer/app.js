@@ -1,10 +1,15 @@
+/* Create a new layer and center it */
+var layerA, originX, originY;
+
 layerA = new Layer({
-  width: 256,
-  height: 256
+  width: 128,
+  height: 128
 });
 
 layerA.center();
+
 originX = layerA.x;
+
 originY = layerA.y;
 
 layerA.image = "https://pbs.twimg.com/profile_images/442744361017540608/NCEct4yy.jpeg";
@@ -14,11 +19,16 @@ layerA.style = {
   boxShadow: 'inset 0 0 0 10px #fff, 0 4px 12px rgba(0,0,0,0.4)'
 };
 
+/* Make the layer draggable */
+
 layerA.draggable.enabled = true;
 
-layerA.on(Events.DragEnd, function(event, layer) {
-  var animation;
+/* Add an animation to the end of a drag */
 
+layerA.on(Events.DragEnd, function(event, layer) {
+
+  /* Snap back to origin */
+  var animation;
   return animation = layer.animate({
     properties: {
       x: originX,
