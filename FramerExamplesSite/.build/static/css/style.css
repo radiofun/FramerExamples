@@ -217,10 +217,3 @@ iframe#code, a.submit, a.download  { display: none; }
 .show {
 	display: block !important;
 }
-
-.half {
-	zoom: 0.5; 
-	-webkit-transform: scale(0.5);
-	background: red !important;
-}
-

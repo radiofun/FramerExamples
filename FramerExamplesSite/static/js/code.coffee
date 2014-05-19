@@ -67,7 +67,7 @@ $(document).ready ->
 		$(this).addClass("active")
 		$(".zoom-toggle-two").addClass("inactive")
 		
-		window.parent.$('#example').toggleClass('half')
+		window.parent.$('#example').contents().find("#FramerRoot").removeClass('half')
 		
 	$(".zoom-toggle-two").click (event) ->
 		event.preventDefault()
@@ -75,4 +75,4 @@ $(document).ready ->
 		$(this).addClass("active")
 		$(".zoom-toggle").addClass("inactive")
 
-		window.parent.$('#example').toggleClass('half')
+		window.parent.$('#example').contents().find("#FramerRoot").addClass('half')

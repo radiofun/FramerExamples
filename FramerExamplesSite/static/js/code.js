@@ -70,14 +70,14 @@
       $(".zoom-toggle-two").removeClass("active");
       $(this).addClass("active");
       $(".zoom-toggle-two").addClass("inactive");
-      return window.parent.$('#example').toggleClass('half');
+      return window.parent.$('#example').contents().find("#FramerRoot").removeClass('half');
     });
     return $(".zoom-toggle-two").click(function(event) {
       event.preventDefault();
       $(this).removeClass("inactive");
       $(this).addClass("active");
       $(".zoom-toggle").addClass("inactive");
-      return window.parent.$('#example').toggleClass('half');
+      return window.parent.$('#example').contents().find("#FramerRoot").addClass('half');
     });
   });
 
