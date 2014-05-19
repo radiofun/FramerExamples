@@ -27,6 +27,6 @@ body {
 	display: none;
 }
 
-.half {
-	zoom: 0.5; 
+#example.half {
+	background: red;
 }

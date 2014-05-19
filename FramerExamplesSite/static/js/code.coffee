@@ -49,6 +49,8 @@ $(document).ready ->
 		$(this).toggleClass("active-toggle")
 		$("#dropdown").toggleClass("active")
 		
+		
+		
 
 	$("#dropdown").click ->
 
@@ -59,4 +61,3 @@ $(document).ready ->
 
 		$(".toggle").toggleClass("active-toggle")
 		$("#dropdown").toggleClass("active")
-		
