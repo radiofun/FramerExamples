@@ -10,7 +10,7 @@ importedLayers = Framer.Importer.load("imported/feed")
 Utils.domLoadScriptSync("framer/library.js")
 Framer.Shortcuts.initialize importedLayers
 
-Framer.Defaults.Animation.curve = "spring(800,40,0)"
+Framer.Defaults.Animation.curve = "spring(800,45,0)"
 
 # We don't want the lightbox to capture clicks.
 Lightbox.visible = true
@@ -145,6 +145,8 @@ unzoomPhoto = (grid) ->
 
 # SET UP THE BEHAVIORS
 
+# Make the feed scrollable
+FeedScroll.scrollVertical = true
 
 # This will assign the same functionality to all the 
 # photos in the grid. That's why we're doing it in a loop.

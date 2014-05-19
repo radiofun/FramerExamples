@@ -93,7 +93,9 @@
     if (layers != null) {
       window.Layers = layers;
       return Framer.Shortcuts.everyLayer(function(layer) {
-        return window[layer.name] = layer;
+        window[layer.name] = layer;
+        Framer.Shortcuts.saveOriginalFrame(layer);
+        return Framer.Shortcuts.initializeTouchStates(layer);
       });
     }
   };
@@ -196,9 +198,9 @@
   */
 
 
-  Framer.Shortcuts.everyLayer(function(layer) {
+  Framer.Shortcuts.saveOriginalFrame = function(layer) {
     return layer.originalFrame = layer.frame;
-  });
+  };
 
   /*
     SHORTHAND HOVER SYNTAX
@@ -233,7 +235,7 @@
   */
 
 
-  Layer.prototype.tap = function(handler) {
+  Layer.prototype.click = function(handler) {
     return this.on(Events.Click, handler);
   };
 
@@ -400,7 +402,7 @@
     }
   };
 
-  _.each(Framer.Defaults.slideAnimations, function(opts, name) {
+  _.each(Framer.Shortcuts.slideAnimations, function(opts, name) {
     return Layer.prototype[name] = function() {
       var _animationConfig, _factor, _phone, _property;
 
@@ -427,11 +429,11 @@
   /*
     EASY FADE IN / FADE OUT
   
-    .show() and .hide() are shortcuts to affect `myLayer.visible`. They immediately show or hide the layer.
+    .show() and .hide() are shortcuts to affect opacity and pointer events. This is essentially the same as hiding with `visible = false` but can be animated.
   
     .fadeIn() and .fadeOut() are shortcuts to fade in a hidden layer, or fade out a visible layer.
   
-    To customize the fade animation, change the variables `Framer.Defaults.defaultFadeAnimation.time` and `defaultFadeAnimation.curve`.
+    To customize the fade animation, change the variables `Framer.Defaults.fadeAnimation.time` and `fadeAnimation.curve`.
   */
 
 
@@ -440,7 +442,7 @@
   };
 
   Layer.prototype.hide = function() {
-    this.opacity = 1;
+    this.opacity = 0;
     return this.style.pointerEvents = 'none';
   };
 
@@ -489,7 +491,7 @@
   */
 
 
-  Framer.Shortcuts.everyLayer(function(layer) {
+  Framer.Shortcuts.initializeTouchStates = function(layer) {
     var hitTarget, _default, _down, _hover;
 
     _default = layer.getChild('default');
@@ -539,7 +541,7 @@
         });
       }
     }
-  });
+  };
 
   /*
     DISPLAY IN DEVICE
