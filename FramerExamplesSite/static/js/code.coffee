@@ -49,9 +49,6 @@ $(document).ready ->
 		$(this).toggleClass("active-toggle")
 		$("#dropdown").toggleClass("active")
 		
-		
-		
-
 	$("#dropdown").click ->
 
 		if _current is "cs"
@@ -61,3 +58,21 @@ $(document).ready ->
 
 		$(".toggle").toggleClass("active-toggle")
 		$("#dropdown").toggleClass("active")
+
+
+	$(".zoom-toggle").click (event) ->
+		event.preventDefault()
+		$(this).removeClass("inactive")	
+		$(".zoom-toggle-two").removeClass("active")
+		$(this).addClass("active")
+		$(".zoom-toggle-two").addClass("inactive")
+		
+		window.parent.$('#example').toggleClass('half')
+		
+	$(".zoom-toggle-two").click (event) ->
+		event.preventDefault()
+		$(this).removeClass("inactive")
+		$(this).addClass("active")
+		$(".zoom-toggle").addClass("inactive")
+
+		window.parent.$('#example').toggleClass('half')

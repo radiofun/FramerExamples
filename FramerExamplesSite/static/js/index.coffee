@@ -1,14 +1,9 @@
-log = console.log
+
 
 showExample = (exampleName) ->
 	$("#code").attr "src", "code.html?name=#{exampleName}"
 	$("#example").attr "src", "example.html?name=#{exampleName}"
 	$("a.download").attr "href", "/static/examples/#{exampleName}.zip"
-
-checkCode = ->
-	codeHTML = $("#code").contents().find("html")
-	if codeHTML.hasClass 'half'
-		 $('#example').addClass('half')
 
 	
 $(document).ready ->
@@ -40,27 +35,7 @@ $(document).ready ->
 		    
 		
 
-$(window).load ->
-	$(".zoom-toggle").click (event) ->
-		event.preventDefault()
-		$(this).removeClass("inactive")	
-		$(".zoom-toggle-two").removeClass("active")
-		$(this).addClass("active")
-		$(".zoom-toggle-two").addClass("inactive")
-		$(':root').removeClass("half")
-		
-		window.parent.postMessage "apenkop", "*"
-		
-	$(".zoom-toggle-two").click (event) ->
-		event.preventDefault()
-		$(this).removeClass("inactive")
-		$(this).addClass("active")
-		$(".zoom-toggle").addClass("inactive")
-		$(":root").addClass("half")
-	
-#	window.addEventListener "apenkop", (e) ->
-#		console.log "hello", e
-#		checkCode()
+
 	
 	
 

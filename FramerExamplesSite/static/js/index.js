@@ -1,20 +1,10 @@
 (function() {
-  var checkCode, log, showExample;
-
-  log = console.log;
+  var showExample;
 
   showExample = function(exampleName) {
     $("#code").attr("src", "code.html?name=" + exampleName);
     $("#example").attr("src", "example.html?name=" + exampleName);
     return $("a.download").attr("href", "/static/examples/" + exampleName + ".zip");
-  };
-
-  checkCode = function() {
-    var codeHTML;
-    codeHTML = $("#code").contents().find("html");
-    if (codeHTML.hasClass('half')) {
-      return $('#example').addClass('half');
-    }
   };
 
   $(document).ready(function() {
@@ -39,25 +29,6 @@
     return $('#topbar img').click(function() {
       $(".navigation").toggleClass("appear");
       return $('#topbar').toggleClass("active");
-    });
-  });
-
-  $(window).load(function() {
-    $(".zoom-toggle").click(function(event) {
-      event.preventDefault();
-      $(this).removeClass("inactive");
-      $(".zoom-toggle-two").removeClass("active");
-      $(this).addClass("active");
-      $(".zoom-toggle-two").addClass("inactive");
-      $(':root').removeClass("half");
-      return window.parent.postMessage("apenkop", "*");
-    });
-    return $(".zoom-toggle-two").click(function(event) {
-      event.preventDefault();
-      $(this).removeClass("inactive");
-      $(this).addClass("active");
-      $(".zoom-toggle").addClass("inactive");
-      return $(":root").addClass("half");
     });
   });
 
