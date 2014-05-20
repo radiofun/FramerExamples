@@ -37,18 +37,21 @@ function retina() {
 $(document).ready(retina);
 
 
-
-$( document ).ready(function() {
-	var isMobile = window.matchMedia( "(max-width: 640px)" );
-	
-	if (isMobile.matches) {
-		$('.navigation ul li:contains("Onboarding")').addClass('show');
-		$('.navigation ul li:contains("Google Now")').addClass('show');
-		$('.navigation ul li:contains("Drawer")').addClass('show');
-		$('.navigation ul li:contains("Pull")').addClass('show');
-		$('.navigation ul li:contains("Snap")').addClass('show');
+function detectMobile() { 
+	if(navigator.userAgent.match(/Android/i)
+	|| navigator.userAgent.match(/webOS/i)
+	|| navigator.userAgent.match(/iPhone/i)
+	|| navigator.userAgent.match(/iPad/i)
+	|| navigator.userAgent.match(/iPod/i)
+	|| navigator.userAgent.match(/BlackBerry/i)
+	|| navigator.userAgent.match(/Windows Phone/i)
+	){
+		return true;
+	} else {
+		return false;
 	}
-});
+}
+
 
 // Disable overscroll / viewport moving on everything but scrollable divs
 document.addEventListener(
@@ -58,3 +61,15 @@ document.addEventListener(
   },
   false
 ); 
+
+$( document ).ready(function() {	
+	if (detectMobile()) {
+		$('head').append('<link rel="stylesheet" type="text/css" href="/static/css/mobile.css">');
+		
+		$('.navigation ul li:contains("Onboarding")').addClass('show');
+		$('.navigation ul li:contains("Google Now")').addClass('show');
+		$('.navigation ul li:contains("Drawer")').addClass('show');
+		$('.navigation ul li:contains("Pull")').addClass('show');
+		$('.navigation ul li:contains("Snap")').addClass('show');
+	}
+});
