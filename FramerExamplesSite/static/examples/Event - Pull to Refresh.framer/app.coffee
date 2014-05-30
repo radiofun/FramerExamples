@@ -17,7 +17,6 @@ startY = 0
 timelineStartY = PSD.timeline.y
 animating = false
 springCurve = "spring(200,20,0)"
-
 PSD.timeline.draggable.enabled = true
 PSD.timeline.draggable.speedX = 0
 
@@ -27,7 +26,8 @@ PSD.timeline.draggable.speedX = 0
 # control so everything is correct in case you pull to refresh 
 # more than once.
 PSD.timeline.on Events.DragStart, (event) ->
-	startY = event.y
+	console.log(event)
+	startY = event.pageY
 	PSD.spinner.scale = 0
 	PSD.spinner.rotation = 0
 	PSD.arrow.scale = 1 
@@ -38,11 +38,11 @@ PSD.timeline.on Events.DragStart, (event) ->
 # also animate once you have pulled enough, letting you know you
 # can release to refresh.
 PSD.timeline.on Events.DragMove, (event) ->
-	# Figure out how far you have pulled, and then move the timline
+	# Figure out how far you have pulled, and then move the timeline
 	# and refresh controls that amount
-	deltaY = startY - event.y
+	deltaY = startY - event.pageY
 	PSD.timeline.y = timelineStartY - deltaY
-	PSD.refreshControl.y = PSD.timeline.y - 70
+	PSD.refreshControl.y =  PSD.timeline.y - 70
 	
 	# If you have pulled enough (in this case more than 100 pixels)
 	# and if the arrow is not animating, then flip the arrow and

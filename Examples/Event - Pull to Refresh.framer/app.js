@@ -35,7 +35,8 @@ control so everything is correct in case you pull to refresh
 more than once. */
 
 PSD.timeline.on(Events.DragStart, function(event) {
-  startY = event.y;
+  console.log(event);
+  startY = event.pageY;
   PSD.spinner.scale = 0;
   PSD.spinner.rotation = 0;
   PSD.arrow.scale = 1;
@@ -49,10 +50,10 @@ can release to refresh. */
 
 PSD.timeline.on(Events.DragMove, function(event) {
 
-  /* Figure out how far you have pulled, and then move the timline
+  /* Figure out how far you have pulled, and then move the timeline
   	and refresh controls that amount
    */
-  deltaY = startY - event.y;
+  deltaY = startY - event.pageY;
   PSD.timeline.y = timelineStartY - deltaY;
   PSD.refreshControl.y = PSD.timeline.y - 70;
 

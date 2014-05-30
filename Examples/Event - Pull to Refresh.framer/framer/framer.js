@@ -59,11 +59,8 @@ exports.Animation = (function(_super) {
       time: 1,
       repeat: 0,
       delay: 0,
-      debug: true
+      debug: false
     });
-    if (options.layer === null) {
-      console.error("Animation: missing layer");
-    }
     if (options.origin) {
       console.warn("Animation.origin: please use layer.originX and layer.originY");
     }
@@ -152,8 +149,13 @@ exports.Animation = (function(_super) {
   Animation.prototype.start = function() {
     var AnimatorClass, k, start, stateA, stateB, target, v, _ref,
       _this = this;
+    if (this.options.layer === null) {
+      console.error("Animation: missing layer");
+    }
     AnimatorClass = this._animatorClass();
-    console.debug("Animation.start " + AnimatorClass.name, this.options.curveOptions);
+    if (this.options.debug) {
+      console.log("Animation.start " + AnimatorClass.name, this.options.curveOptions);
+    }
     this._animator = new AnimatorClass(this.options.curveOptions);
     target = this.options.layer;
     stateA = this._currentState();
@@ -168,10 +170,12 @@ exports.Animation = (function(_super) {
     if (_.isEqual(stateA, stateB)) {
       console.warn("Nothing to animate");
     }
-    console.debug("Animation.start");
-    for (k in stateB) {
-      v = stateB[k];
-      console.debug("\t" + k + ": " + stateA[k] + " -> " + stateB[k]);
+    if (this.options.debug) {
+      console.log("Animation.start");
+      for (k in stateB) {
+        v = stateB[k];
+        console.log("\t" + k + ": " + stateA[k] + " -> " + stateB[k]);
+      }
     }
     this._animator.on("start", function() {
       return _this.emit("start");
@@ -210,7 +214,10 @@ exports.Animation = (function(_super) {
   };
 
   Animation.prototype.stop = function() {
-    this._animator.stop();
+    var _ref;
+    if ((_ref = this._animator) != null) {
+      _ref.stop();
+    }
     return _runningAnimations = _.without(_runningAnimations, this);
   };
 
@@ -276,16 +283,12 @@ AnimationLoop = {
     return window.requestAnimationFrame(AnimationLoop._tick);
   },
   _stop: function() {
-    console.debug("AnimationLoop._stop");
     return AnimationLoop._running = false;
   },
   _tick: function() {
     var animator, delta, removeAnimators, time, _i, _j, _len, _len1, _ref;
     if (!AnimationLoop._animators.length) {
       return AnimationLoop._stop();
-    }
-    if (AnimationLoop._sessionTime === 0) {
-      console.debug("AnimationLoop._start");
     }
     AnimationLoop._frameCounter++;
     time = Utils.getTime();
@@ -2195,7 +2198,9 @@ exports.Layer = (function(_super) {
     }
     Layer.__super__.removeListener.call(this, event, listener);
     this._element.removeEventListener(event, listener);
-    return this._eventListeners[event] = _.without(this._eventListeners[event], listener);
+    if (this._eventListeners) {
+      return this._eventListeners[event] = _.without(this._eventListeners[event], listener);
+    }
   };
 
   Layer.prototype.removeAllListeners = function() {

@@ -2,7 +2,6 @@
 
 PSD = Framer.Importer.load("imported/GoogleNow")
 
-
 # Settings
 animateSpeed = 0.18
 animateCurveSpeed = 0.2
