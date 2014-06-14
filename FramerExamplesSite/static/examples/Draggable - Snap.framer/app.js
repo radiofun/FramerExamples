@@ -2,8 +2,8 @@
 var layerA, originX, originY;
 
 layerA = new Layer({
-  width: 128,
-  height: 128
+  width: 256,
+  height: 256
 });
 
 layerA.center();

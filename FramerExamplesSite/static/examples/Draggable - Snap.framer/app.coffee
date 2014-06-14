@@ -1,5 +1,5 @@
 # Create a new layer and center it
-layerA = new Layer width:128, height:128
+layerA = new Layer width:256, height:256
 layerA.center()
 
 originX = layerA.x
