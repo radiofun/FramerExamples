@@ -1,3 +1,4 @@
+@import "fonts.css";
 /*=========================================
 Reset
 =========================================== */
@@ -11,7 +12,8 @@ html, body {
 
 body {
 	margin: 0;
-	font:13px/1.4 "colfax-web", "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font:14px/1.4 "Fakt", "Helvetica Neue",Helvetica,Arial,sans-serif;
+	-webkit-font-smoothing: antialiased;
 	background: #282C33;
 	position: relative;
 	width: 100%;
@@ -20,27 +22,29 @@ body {
 
 a {
 	text-decoration: none;
-	color:#888;
+	color:#999;
 	font-weight: 400;
 }
 
 h1 {
-	font-size: 15px; font-weight: 400;
+	font-size: 13px; font-weight: 500; 
 	background: #92CEE1;
 	background: #8ECFEE;
-	padding: 30px 20px;
+	padding: 30px 20px 25px;
 	color: #fff; 
 	max-height: 75px;
+	text-transform: uppercase; letter-spacing: 2px;
+	
 }
 
 h1 a {
-	color: #fff; font-weight: bold; 
-	text-transform: uppercase; margin-right: 2px;
+	color: #fff; 
+	font-weight: 600;
 }
 
 .navigation {
 	float: left;
-	width: 290px; margin-right: -290px;
+	width: 300px; margin-right: -300px;
 	background: #fff;
 	min-width: 200px;
 	height: 100%;
@@ -58,9 +62,15 @@ h1 a {
 }
 
 .navigation ul li a {
-	padding: 13px 20px 10px 20px;
+	padding: 14px 20px 9px 20px;
 	display: block;
 	background: #fff;
+}
+
+.navigation ul li.headline {
+	padding: 14px 20px 9px 20px;
+	background: #fff; font-size: 20px;
+	color: #333; font-weight: 300;
 }
 
 .navigation ul li a:hover {
@@ -71,9 +81,10 @@ h1 a {
 	border-top: 1px solid #eee;
 }
 
-a.active {
+.navigation ul li.active a {
 	font-weight: 500;
-	color: #333;
+	background: #fafafa;
+	color: #666;
 }
 
 #right-section {
@@ -81,16 +92,16 @@ a.active {
 }
 
 #right-section .padding {
-	margin-left: 290px; height: 100%;
+	margin-left: 300px; height: 100%;
 	position: relative;
 }
 
 #code {
 	position: absolute; top: 0; left: 0;
 	width: 40%; height: 100%;
-	background: #282C33; 
+	background: #1D2026; 
 	border: none;
-	border-right: 1px solid #343840;
+	border-right: 1px solid #252a31;
 	min-width: 300px; z-index: 0;
 }
 
@@ -105,12 +116,12 @@ a.active {
 
 a.download {
 	position: absolute; top: 10px; right: 10px;
-	padding: 8px 16px 7px;
+	padding: 10px 16px 6px;
 	border-radius: 4px; 
 	z-index: 100;  
 	background: rgba(0,0,0,0.4);
 	color: #fff;
-	font-weight: 500; font-size: 15px;
+	font-weight: 500; font-size: 14px;
 }
 
 a.download:hover {

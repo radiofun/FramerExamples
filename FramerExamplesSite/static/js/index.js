@@ -19,8 +19,8 @@
       });
     }
     $(".navigation ul li a").click(function() {
-      $(".navigation ul li a").removeClass("active");
-      $(this).addClass("active");
+      $(".navigation ul li").removeClass("active");
+      $(this).parent().addClass("active");
       exampleName = $(this).attr("href").slice(1);
       showExample(exampleName);
       $(".navigation").removeClass("appear");

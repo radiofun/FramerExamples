@@ -1,3 +1,4 @@
+@import "fonts.css";
 .clearfix:before,.clearfix:before,.clearfix:after { content: ""; display: table;} 
 .clearfix:after { clear: both;}
 .clearfix { zoom: 1;}
@@ -5,7 +6,7 @@
 *, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
 pre {
-    background: #282C33; 
+    background: #1D2026; 
     word-wrap: break-word;
     margin: 0;
     color: #fff; /* base0 */
@@ -21,38 +22,36 @@ pre {
 
 pre, code {
     font-family: 'Menlo', 'Monaco', Courier, monospace; 
-    tab-width: 4;
+}
+
+code.inline {
+	font-size: 14px;
+	color: #333;font-family: 'Menlo', 'Monaco', Courier, monospace;
+	border-bottom: 1px dotted #ddd;
+	padding-bottom: 2px;
+}
+
+#code-block pre {
+	border-radius: 0 0 6px 6px;
+	font-size: 12px; line-height: 1.5;
+	margin-bottom: 40px;
 }
 
 pre .comment {
-    color: #84D1FF; /* base01 */
+    color: #616D85; /* COMMENTS BASE */
 }
-
-pre .constant{
-    color: #839496; /* All numbers */  
+pre .keyword, pre .selector {
+    color: #FF9740; /* the "new" in new Layer */
 }
-
 pre .constant.numeric { /* --- Numbers, pinkish --- */
-	color: #ff6c88;
+	color: #4DB4EC;
 }
 pre .constant.language {
-    color: #fcfcfc; /* Javascript, so the ".on" in imageLayer.on */
+    color: #91fcf3; /* Javascript, so the ".on" in imageLayer.on */
 }
 
 pre .string, pre .comment.docstring {
-    color: #acf351; /* --- Green, the "spring" and other things between hashes --- */
-}
-
-pre .keyword, pre .selector {
-    color: #84D1FF; /* the "new" in new Layer */
-}
-
-/*LINES*/
-pre code.rainbow .line:before {
-	font-size: 10px;
-	color: #939599;
-	padding-top:1px;
-	margin-right: 15px;
+    color: #7DDC16; /* --- Green, the "spring" and other things between hashes --- */
 }
 
 a {
@@ -63,12 +62,11 @@ a {
 
 #header {
 	position: absolute; top: 0; left: 0; right: 0;
-	font-size: 15px; font-weight: 500;
 	-webkit-font-smoothing: antialiased;
 	background: rgba(0,0,0,.3);
 	padding: 20px; height: 75px;
 	color: #fff;
-	font:15px/1 "colfax-web", "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font:16px/1 "Fakt", "Helvetica Neue",Helvetica,Arial,sans-serif;
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
@@ -78,19 +76,19 @@ a {
 }
 
 .toggle {
-	background: #343941;
-	padding: 10px 16px;
+	box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
+	padding: 12px 16px 8px;
 	border-radius: 4px; 
 	cursor: pointer; cursor: hand;
 	display: inline-block;
 	width: 134px;
-	font-size: 13px;
+	font-size: 14px;
 }
 
 .toggle:after {
 	content: ""; display: inline-block;
 	width: 0;  position: relative;
-	height: 0; top: 5px;
+	height: 0; top: 3px;
 	float: right;
 	border-left: 5px solid transparent;
 	border-right: 5px solid transparent;
@@ -103,7 +101,7 @@ a {
 	border-right: 5px solid transparent;
 	border-bottom: 5px solid #fff;
 	border-top: 5px solid transparent;
-	top: 0; opacity: 1;
+	top: -2px; opacity: 1;
 }
 
 
@@ -114,14 +112,13 @@ a {
 
 #dropdown {
 	list-style: none;	
-	background: #343941;
 	border-radius: 0 0 4px 4px;
 	width: 134px;
 	padding: 0;
 	position: absolute; top:18px; left: 0;
 	display: none;
 	overflow: hidden;
-	box-shadow: 0 1px 4px rgba(0,0,0,.3);
+	box-shadow: 0 2px 4px rgba(0,0,0,.5);
 }
 
 #dropdown li {
@@ -130,11 +127,11 @@ a {
 }
 
 #dropdown li a {
-	padding: 12px 16px;
-	display: block; font-size: 13px;
+	padding: 12px 16px 8px;
+	display: block; font-size: 14px;
 	font-weight: 500;
-	background: #40464f;
-	color: #afb4bc;
+	background: #202127;
+	color: #afb4bc; margin-top: -1px;
 }
 
 #dropdown.active {
@@ -147,18 +144,17 @@ a {
 }
 
 #dropdown li a:hover{
-	background: #545a63; color: #fff;
+	background: #24262d; color: #fff;
 	opacity: 1; box-shadow: none;
 }
 
 a.learn {
 	float: left;
-	margin: 8px 0 0 14px;
-	font-size: 13px;
+	margin: 8px 0 0 10px;
+	font-size: 14px;
 	color: #545a63;
 	font-weight: 500;
-	box-shadow: 0 0 0 2px #272b33;
-	display: inline-block;
+	display: inline-block; display: none;
 	padding: 2px;
 	border-radius: 50%;
 	height: 20px; width: 20px; text-align: center; line-height: 18px;
@@ -186,14 +182,14 @@ a.learn {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
-	background: #343941;
+	background: #1D2026;
 	border-radius: 4px;
-	padding: 2px;
+	padding: 1px;
 	cursor: pointer; cursor: hand; 
 }
 
 #zoom-toggle-section a {
-	font-weight: 500;
+	font-weight: 600;
 	cursor: pointer; cursor: hand; 
 }
 
@@ -201,15 +197,15 @@ a.learn {
 	color: #fff;
 	display: inline-block;
 	border-radius: 2px; 
-	padding: 9px 14px 8px;
+	padding: 10px 14px 8px;
 }
 
 .zoom-toggle-two {
 	display: inline-block;
-	border-radius: 2px; 
-	padding: 9px 14px 8px;
-	background: #1c1f24;
-	color: rgba(255,255,255,0.5);
+	border-radius: 3px; 
+	padding: 10px 14px 8px;
+	background: #131519;
+	color: rgba(255,255,255,0.4);
 	margin-left: -2px;
 }
 
@@ -219,8 +215,9 @@ a.learn {
 }
 
 .zoom-toggle.inactive, .zoom-toggle-two.inactive  {
-	background: #1c1f24;
+	background: #131519;
 	color: rgba(255,255,255,0.5);
+	font-weight: 500;
 }
 
 

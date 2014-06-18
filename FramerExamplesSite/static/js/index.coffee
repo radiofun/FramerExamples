@@ -19,8 +19,8 @@ $(document).ready ->
 
 	$(".navigation ul li a").click ->
 
-		$(".navigation ul li a").removeClass "active"
-		$(@).addClass "active"
+		$(".navigation ul li").removeClass "active"
+		$(@).parent().addClass "active"
 
 		exampleName = $(@).attr("href")[1..]
 		showExample exampleName
