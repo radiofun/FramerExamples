@@ -54,6 +54,14 @@ pre .string, pre .comment.docstring {
     color: #7DDC16; /* --- Green, the "spring" and other things between hashes --- */
 }
 
+pre .keyword.operator {
+	color: #fff;
+}
+
+span.constant.numeric > span.keyword.operator {
+	color: #4DB4EC;
+}
+
 a {
 	text-decoration: none;
 	color:#fff;
