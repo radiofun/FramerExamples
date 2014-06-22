@@ -12,7 +12,7 @@
     var exampleName;
     exampleName = window.location.hash.slice(1);
     if (!exampleName) {
-      window.location.hash = exampleName = "carousel-onboarding.framer";
+      window.location.hash = exampleName = "animation-basics.framer";
     }
     showExample(exampleName);
     $(".navigation ul li a").each(function() {

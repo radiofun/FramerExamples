@@ -36,9 +36,7 @@ imageLayer.states.add({
 
 document.addEventListener('keydown', function(event) {
 
-  /* event.which gives us the charCode of the key that was pressed
-  	for a list of keyCodes you can use, check here: http://css-tricks.com/snippets/javascript/javascript-keycodes/
-   */
+  /* event.which gives us the charCode of the key that was pressed for a list of keyCodes you can use, check here: http://css-tricks.com/snippets/javascript/javascript-keycodes/ */
   var key, keyCode;
   keyCode = event.which;
 
@@ -51,9 +49,7 @@ document.addEventListener('keydown', function(event) {
       return imageLayer.states.next();
     case 'P':
 
-      /* We can also check if special keys like Alt or Shift are pressed.
-      			So to toggle the previous state, you'll need to press Alt + P, instead of just P
-       */
+      /* We can also check if special keys like Alt or Shift are pressed. So to toggle the previous state, you'll need to press Alt + P, instead of just P */
       if (event.altKey) {
         return imageLayer.states.previous();
       }

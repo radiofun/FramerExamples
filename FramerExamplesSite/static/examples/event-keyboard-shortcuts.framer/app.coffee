@@ -10,8 +10,7 @@ imageLayer.states.add
 
 # Next, we'll tell our document to listen for keystrokes
 document.addEventListener 'keydown', (event) ->
-	# event.which gives us the charCode of the key that was pressed
-	# for a list of keyCodes you can use, check here: http://css-tricks.com/snippets/javascript/javascript-keycodes/
+	# event.which gives us the charCode of the key that was pressed for a list of keyCodes you can use, check here: http://css-tricks.com/snippets/javascript/javascript-keycodes/
 	keyCode = event.which
 	
 	# We'll turn our keyCode to a readable character. The character will be uppercased
@@ -22,8 +21,7 @@ document.addEventListener 'keydown', (event) ->
 		when 'N'
 			imageLayer.states.next()
 		when 'P'
-			# We can also check if special keys like Alt or Shift are pressed.
-			# So to toggle the previous state, you'll need to press Alt + P, instead of just P
+			# We can also check if special keys like Alt or Shift are pressed. So to toggle the previous state, you'll need to press Alt + P, instead of just P
 			if event.altKey
 				imageLayer.states.previous()
 		when '1'

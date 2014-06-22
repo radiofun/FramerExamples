@@ -48,9 +48,6 @@ RefreshButton.opacity = 0
 IntroSlide.draggable.enabled = true
 IntroSlide.draggable.speedY = 0
 
-
-
-
 # A couple shortcut functions
 Layer::fadeIn = ->
 	this.animate
@@ -65,12 +62,6 @@ Layer::fadeOut = ->
 			opacity: 0
 		curve: 'ease-in-out'
 		time: 0.1
-
-
-
-
-
-
 
 changeScene = (scene) ->			
 	switch scene
@@ -103,9 +94,6 @@ changeScene = (scene) ->
 			SignupCta.fadeIn()
 			Utils.delay 0.6, ->
 				RefreshButton.animate properties: scale: 1.8, opacity: 1
-
-
-
 
 
 IntroSlide.on Events.DragEnd, ->

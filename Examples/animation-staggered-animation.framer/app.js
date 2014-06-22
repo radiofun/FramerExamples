@@ -79,8 +79,7 @@ for (_i = 0, _len = _ref.length; _i < _len; _i++) {
   };
 }
 
-/* We'll increase the delay between animation a tiny bit every time one of them runs,
-but since the first animation is going to run without delay, we set it to 0 */
+/* We'll increase the delay between animation a tiny bit every time one of them runs, but since the first animation is going to run without delay, we set it to 0 */
 
 delay = 0;
 

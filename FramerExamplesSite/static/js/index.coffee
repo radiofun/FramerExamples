@@ -14,7 +14,7 @@ $(document).ready ->
 	exampleName = window.location.hash[1..]
 
 	if not exampleName
-		window.location.hash = exampleName = "carousel-onboarding.framer"
+		window.location.hash = exampleName = "animation-basics.framer"
 
 	showExample exampleName
 

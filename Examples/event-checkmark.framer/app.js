@@ -1,13 +1,8 @@
 /* Using basic events example */
 
-/* In this example, you'll learn how to use basic events to 
-toggle a selection checkmark. Learn more about events in 
-Framer here: http://www.framerjs.com/lessons/index.html#events */
+/* In this example, you'll learn how to use basic events to toggle a selection checkmark. Learn more about events in Framer here: http://www.framerjs.com/lessons/index.html#events */
 
-/* Set up the layers. There's a layer for the photo, and then a 
-layer for both the unchecked checkmark, and the checked 
-checkmark. checkmarkChecked is set to scale 0, since the 
-default state is unchecked. */
+/* Set up the layers. There's a layer for the photo, and then a layer for both the unchecked checkmark, and the checked checkmark. checkmarkChecked is set to scale 0, since the default state is unchecked. */
 var checkmark, checkmarkChecked, photo;
 
 photo = new Layer({
@@ -36,8 +31,7 @@ checkmarkChecked = new Layer({
 
 checkmarkChecked.scale = 0;
 
-/* We want the checkmark to scale down when the user initially
-clicks or touches to provide feedback */
+/* We want the checkmark to scale down when the user initiallyclicks or touches to provide feedback */
 
 checkmark.on(Events.TouchStart, function() {
   return checkmark.animate({
@@ -48,13 +42,7 @@ checkmark.on(Events.TouchStart, function() {
   });
 });
 
-/* When the click or touch ends, we want to swap the checkmark 
-and scale back up to 1. We set checkmarkChecked to the
-current scale of checkmark (this makes sure they're always
-in sync) and then immediately set the scale of checkmark
-to 0. We then call animateStop() on checkmark, in case the
-spring is still oscillating, then set checkmark's scale to 0
-and finally animate checkmarkChecked back to the proper scale. */
+/* When the click or touch ends, we want to swap the checkmark and scale back up to 1. We set checkmarkChecked to the current scale of checkmark (this makes sure they're always in sync) and then immediately set the scale of checkmark to 0. We then call animateStop() on checkmark, in case the spring is still oscillating, then set checkmark's scale to 0 and finally animate checkmarkChecked back to the proper scale. */
 
 checkmark.on(Events.TouchEnd, function() {
   checkmarkChecked.scale = checkmark.scale;
@@ -68,9 +56,7 @@ checkmark.on(Events.TouchEnd, function() {
   });
 });
 
-/* We also want to be able to toggle the selection state of the
-checkmark, so we apply the same events with the opposite
-effects to checkmarkChecked */
+/* We also want to be able to toggle the selection state of the checkmark, so we apply the same events with the opposite effects to checkmarkChecked */
 
 checkmarkChecked.on(Events.TouchStart, function() {
   return checkmarkChecked.animate({

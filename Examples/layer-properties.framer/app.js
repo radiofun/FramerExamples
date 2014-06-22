@@ -1,15 +1,11 @@
 /* Changing layer properties */
 
-/* A new layer has a set of default properties: a width and 
-height of 100 and a blue color. You can change these, see
-the example Framer Defaults. */
+/* A new layer has a set of default properties: a width and height of 100 and a blue color. You can change these, see the example Framer Defaults. */
 var layerA, layerB, layerC, layerD;
 
 layerA = new Layer;
 
-/* A layer has many properties like width, height,
-backgroundColor, opacity etc. You can find them all in the
-documentation here: http://www.framerjs.com */
+/* A layer has many properties like width, height, backgroundColor, opacity etc. You can find them all in the documentation here: http://www.framerjs.com */
 
 /* You can set any of them on creation like this */
 
@@ -33,8 +29,7 @@ layerC = new Layer({
 
 layerC.rotation = 10;
 
-/* Here are some more properties to play with, and you can
-also see how to set multiple properties at once. */
+/* Here are some more properties to play with, and you can also see how to set multiple properties at once. */
 
 layerD = new Layer({
   width: 100,

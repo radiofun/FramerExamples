@@ -30,8 +30,7 @@ for layer in [tip1, tip2, tip3, tip4, tip5]
 			tension: 300
 			friction: 50
 
-# We'll increase the delay between animation a tiny bit every time one of them runs,
-# but since the first animation is going to run without delay, we set it to 0
+# We'll increase the delay between animation a tiny bit every time one of them runs, but since the first animation is going to run without delay, we set it to 0
 delay = 0
 
 # Go through each layer and switch its state to "visible"

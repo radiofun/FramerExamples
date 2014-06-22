@@ -38,9 +38,7 @@ notification.on(Events.Click, function() {
   notification.originX = 0;
   notification.originY = 0;
 
-  /* Notice that we're assigning the result of the animate to a variable called hingeAnimation.
-  	This lets us refer to the animation that's about to run in other parts of the code
-   */
+  /* Notice that we're assigning the result of the animate to a variable called hingeAnimation. This lets us refer to the animation that's about to run in other parts of the code */
   hingeAnimation = notification.animate({
     properties: {
       rotationZ: 75

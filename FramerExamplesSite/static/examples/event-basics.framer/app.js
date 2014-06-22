@@ -1,8 +1,6 @@
 /* Event Basics */
 
-/* This example shows some of the basic ways to use events
-in Framer. To learn more, dive in to the documentation
-on events here: [link to events part of Framerjs.com] */
+/* This example shows some of the basic ways to use events in Framer. To learn more, dive in to the documentation on events here: [link to events part of Framerjs.com] */
 
 /* Set up some global constants */
 var curve1, layer1, layer2, layer3, textStyle;
@@ -55,8 +53,7 @@ layer2.style = textStyle;
 
 layer3.style = textStyle;
 
-/* On mouse over on the blue layer, shrink it, and mouseout, grow back 
-to original size. */
+/* On mouse over on the blue layer, shrink it, and mouseout, grow back to original size. */
 
 layer1.on(Events.MouseOver, function() {
   return layer1.animate({
@@ -76,9 +73,7 @@ layer1.on(Events.MouseOut, function() {
   });
 });
 
-/* When the green layer is clicked, animate scale to 1.2, then after
-a 2 second delay, shrink back to original size. Events.Click
-is triggered on mouseup, or touchend for touch devices. */
+/* When the green layer is clicked, animate scale to 1.2, then after a 2 second delay, shrink back to original size. Events.Click is triggered on mouseup, or touchend for touch devices. */
 
 layer2.on(Events.Click, function() {
   layer2.animate({
@@ -97,11 +92,7 @@ layer2.on(Events.Click, function() {
   });
 });
 
-/* When mouse down occurs on the red layer, shrink it, and when
-mouseup occurs, grow back to original size. Events.TouchStart
-and Events.TouchEnd are used as they return mouse events
-or touch events depending on device. If you don't care about 
-touch devices, you could use "mousedown" and "mouseup" instead. */
+/* When mouse down occurs on the red layer, shrink it, and when mouseup occurs, grow back to original size. Events.TouchStart and Events.TouchEnd are used as they return mouse events or touch events depending on device. If you don't care about touch devices, you could use "mousedown" and "mouseup" instead. */
 
 layer3.on(Events.TouchStart, function() {
   layer3.animate({

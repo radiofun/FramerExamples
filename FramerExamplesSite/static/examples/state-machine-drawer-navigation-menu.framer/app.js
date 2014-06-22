@@ -1,7 +1,6 @@
 /* Airbnb-style Drawer Navigation Menu */
 
-/* To try it out, click on the prototype. The front layer should scale down and rotate slightly,
-and the menu options should come in from the side, similar to what happens in the Airbnb app. */
+/* To try it out, click on the prototype. The front layer should scale down and rotate slightly, and the menu options should come in from the side, similar to what happens in the Airbnb app. */
 
 /* Setup */
 var back, container, front, i, menu, menuOption, menuOptions, option, _i, _len;
@@ -50,8 +49,7 @@ menu = new Layer({
 
 menu.style.webkitPerspective = '1000px';
 
-/* Then we'll create each option as a subLayer to the menu layer.
-We'll start them off slightly rotated (each one is rotated slightly more than the next) and fully transparent. This will be the initial, or "default" state of the menu options. */
+/* Then we'll create each option as a subLayer to the menu layer. We'll start them off slightly rotated (each one is rotated slightly more than the next) and fully transparent. This will be the initial, or "default" state of the menu options. */
 
 menuOptions = (function() {
   var _i, _len, _ref, _results;
@@ -82,8 +80,7 @@ menuOptions = (function() {
   return _results;
 })();
 
-/* Define the other states we'll be using. In this prototype, we'll need only one more state -
-one that defines how the individual layers of our prototype look when the menu is open */
+/* Define the other states we'll be using. In this prototype, we'll need only one more state - one that defines how the individual layers of our prototype look when the menu is open */
 
 /* When the menu is open, the front view is scaled down and rotated slightly */
 
@@ -113,9 +110,7 @@ for (i = _i = 0, _len = menuOptions.length; _i < _len; i = ++_i) {
     rotationY: 0
   });
 
-  /* We'll use a slightly different animation for the menu options coming in.
-  	Since there's less tension, the animation will take a little longer to settle.
-   */
+  /* We'll use a slightly different animation for the menu options coming in. Since there's less tension, the animation will take a little longer to settle. */
   menuOption.states.animationOptions = {
     delay: i * 0.08,
     curve: 'spring',
@@ -127,8 +122,7 @@ for (i = _i = 0, _len = menuOptions.length; _i < _len; i = ++_i) {
   };
 }
 
-/* Finally we'll define a state for the container of the menu options. It will go
-back to 60px off the left edge of the screen and scale to its original size. */
+/* Finally we'll define a state for the container of the menu options. It will go back to 60px off the left edge of the screen and scale to its original size. */
 
 menu.states.add('menuOpen', {
   scale: 1,
@@ -144,8 +138,7 @@ menu.states.animationOptions = {
   }
 };
 
-/* Alternate between the menuOpen and default state of the menu when the menu button is clicked.
-For simplicity, we've made the entire front layer clickable. */
+/* Alternate between the menuOpen and default state of the menu when the menu button is clicked. For simplicity, we've made the entire front layer clickable. */
 
 front.on(Events.Click, function() {
   var _j, _len1, _results;

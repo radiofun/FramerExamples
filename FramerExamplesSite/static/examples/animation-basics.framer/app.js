@@ -15,10 +15,7 @@ layerA.animate({
   }
 });
 
-/* Now let's create an animation with some more options.
-We'll animate both the y property and the rotation of the red square.
-You can animate as many properties as you want at the same time.
-The time property controls the speed of the animation in seconds. */
+/* Now let's create an animation with some more options. We'll animate both the y property and the rotation of the red square. You can animate as many properties as you want at the same time. The time property controls the speed of the animation in seconds. */
 
 layerB = new Layer({
   width: 80,
@@ -35,8 +32,7 @@ layerB.animate({
   time: 5
 });
 
-/* The curve options describe the animation curve. The default
-is linear, but you can use other curves like "cubic-bezier" or "spring". */
+/* The curve options describe the animation curve. The default is linear, but you can use other curves like "cubic-bezier" or "spring". */
 
 layerC = new Layer({
   width: 80,

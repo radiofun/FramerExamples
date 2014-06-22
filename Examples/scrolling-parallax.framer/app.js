@@ -51,8 +51,7 @@ container.on(Events.TouchStart, function(event) {
   return lastYPosition = event.y;
 });
 
-/* As the finger slides across the screen, we update the lastYPosition and calculate
-by how much we really moved (yDelta = lastYPosition - newTPosition). */
+/* As the finger slides across the screen, we update the lastYPosition and calculate by how much we really moved (yDelta = lastYPosition - newTPosition). */
 
 container.on(Events.TouchMove, function(event) {
   var yDelta;

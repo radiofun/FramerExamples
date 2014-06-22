@@ -35,24 +35,17 @@ keepHint.scale = 0
 keepHint.opacity = 0
 chat1.y = chat1.originalFrame.y + 600
 chat2.y = chat2.originalFrame.y + 600
-# These are used as checks to make sure we don't have
-# animations left over running in the animator
+
+# These are used as checks to make sure we don't have  animations left over running in the animator
 splashHintRun = true
 scrollHintRun = false
 shareHintRun = false
 keepHintRun = false
-# These are used when scrolling is triggered from a 
-# click to ensure that we call the animation only 
-# once and the other clicks simply return. The technique
-# is simply to set a var to true, and after the first
-# click on a view, immediately set that var to false
+# These are used when scrolling is triggered from a click to ensure that we call the animation only once and the other clicks simply return. The technique is simply to set a var to true, and after the first click on a view, immediately set that var to false
 c1 = true	
 c2 = true
 
-# Set up swipeHintAnimator for the splash swipe hint 
-# bobble, including checks to make sure the animation 
-# loop doesn't persist
-
+# Set up swipeHintAnimator for the splash swipe hint bobble, including checks to make sure the animation loop doesn't persist
 
 swipeHintAnimatorRunning = false
 
@@ -100,8 +93,7 @@ swipeHintAnimator = ->
 
 swipeHintAnimator() 
 
-# On click, animate the splash page, and make sure
-# the animations are only called once (c1)
+# On click, animate the splash page, and make sure the animations are only called once (c1)
 splash.on Events.Click, ->
 	if c1
 		c1 = false
@@ -169,9 +161,7 @@ scrollHintAnimator = ->
 			Utils.delay 0.5, scrollHintAnimator
 
 
-# Animate splash view away when Continue is clicked,
-# and bring in scrollarama, and show scrollHintAnimator
-# after the view enters
+# Animate splash view away when Continue is clicked, and bring in scrollarama, and show scrollHintAnimator after the view enters
 btnContinue.on Events.Click, ->
 
 	scrollHintRun = true
@@ -203,8 +193,7 @@ btnContinue.on Events.Click, ->
 			scrollaramEnterAnimation.on 'end', ->
 				scrollHintAnimator()
 				
-# Set up shareHintAnimator for the pulsing bobble
-# over the share button
+# Set up shareHintAnimator for the pulsing bobble over the share button
 shareHintAnimator = ->
 	if shareHintRun
 		shareGrow = shareHint.animate
@@ -229,9 +218,7 @@ shareHintAnimator = ->
 				return
 		shareGrow.start()
 		
-# Scroll all the photos! On click, but only the first
-# click. Also bring in shareHintAnimator when the
-# photo scroll is done.
+# Scroll all the photos! On click, but only the first click. Also bring in shareHintAnimator when the photo scroll is done.
 scrollarama.on Events.Click, ->
 	if c2
 		c2 = false
@@ -241,9 +228,7 @@ scrollarama.on Events.Click, ->
 		scrollPhotosAnimation = scrollPhotos.animate 
 			properties:
 				y: scrollPhotos.originalFrame.y - 5234
-			# This used to be a spring, but it was buggy, probably
-			# because of the huge distance traveled
-			# 'spring(22,10,0)'
+			# This used to be a spring, but it was buggy, probably because of the huge distance traveled 'spring(22,10,0)'
 			curve: 'cubic-bezier'
 			time: 3
 		scrollDates.animate 
@@ -270,8 +255,7 @@ scrollarama.on Events.Click, ->
 	else
 		return
 	
-# Set up keepHintAnimator for the pulsing bobble
-# over the keep button
+# Set up keepHintAnimator for the pulsing bobble over the keep button
 keepHintAnimator = ->
 	if keepHintRun
 		keepGrow = keepHint.animate
@@ -295,8 +279,7 @@ keepHintAnimator = ->
 			else
 				return
 			
-# When the share hint is clicked, animate 
-# to the next view
+# When the share hint is clicked, animate to the next view
 shareHint.on Events.Click, ->
 	shareHintRun = false
 	shareHint.destroy()

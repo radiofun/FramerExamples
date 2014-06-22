@@ -1,5 +1,4 @@
-/* Here I'll try to show off what dynamic properties are for a state
-machine. Let's begin by making a layer that you can drag around. */
+/* Here I'll try to show off what dynamic properties are for a state machine. Let's begin by making a layer that you can drag around. */
 var layerA, layerB;
 
 layerA = new Layer({
@@ -14,9 +13,7 @@ layerA.center();
 
 layerA.draggable.enabled = true;
 
-/* Now make a new layer with a two states that we will toggle between.
-But rather than toggling between a static value for x, we are going
-to define one state to be "next to layerA". */
+/* Now make a new layer with a two states that we will toggle between. But rather than toggling between a static value for x, we are going to define one state to be "next to layerA". */
 
 layerB = new Layer({
   width: 80,
@@ -39,8 +36,7 @@ layerB.states.add({
   }
 });
 
-/* Notice how nextToLayerA defines x and y as a function that gets
-only calculated when the state switch takes place. */
+/* Notice how nextToLayerA defines x and y as a function that gets only calculated when the state switch takes place. */
 
 layerB.on(Events.Click, function() {
   return layerB.states.next("nextToLayerA", "topLeft");

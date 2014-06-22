@@ -1,7 +1,4 @@
-/* Basic state machine. A state machine is a simple way to organize
-animation code. The idea is that you define a set of states, which
-are a collection of properties with values, by name. From then on
-you can animate to any state. */
+/* Basic state machine. A state machine is a simple way to organize animation code. The idea is that you define a set of states, which are a collection of properties with values, by name. From then on you can animate to any state. */
 var layerA, layerB, layerC;
 
 layerA = new Layer({
@@ -10,8 +7,7 @@ layerA = new Layer({
   backgroundColor: "red"
 });
 
-/* This is how you define states. There is always an initial state that
-is called 'default' and has the initial properties. */
+/* This is how you define states. There is always an initial state that is called 'default' and has the initial properties. */
 
 layerA.states.add({
   stateA: {
@@ -24,16 +20,13 @@ layerA.states.add({
   }
 });
 
-/* So now layerA had three states default, stateA and stateB. Let's 
-switch to some state on a click. */
+/* So now layerA had three states default, stateA and stateB. Let's switch to some state on a click. */
 
 layerA.on(Events.Click, function() {
   return layerA.states["switch"]("stateA");
 });
 
-/* That is cool but it now just switches to stateA on every click so 
-it's just stuck there. Normally you would want to toggle or cycle
-through states. That is where the .next() function comes in. */
+/* That is cool but it now just switches to stateA on every click so it's just stuck there. Normally you would want to toggle or cycle through states. That is where the .next() function comes in. */
 
 /* Let's set up another layer that cycles through states. */
 
@@ -68,9 +61,7 @@ layerB.on(Events.Click, function() {
   return layerB.states.next();
 });
 
-/* That is a lot cooler. Now often, you want to determine the order
-of the states that it cycles through. The .next() function takes
-a list of state names. */
+/* That is a lot cooler. Now often, you want to determine the order of the states that it cycles through. The .next() function takes a list of state names. */
 
 layerC = new Layer({
   width: 50,
@@ -102,9 +93,7 @@ layerC.on(Events.Click, function() {
   return layerC.states.next("stateC", "stateB");
 });
 
-/* Finally, you want to control the animation for a switch. That is set
-with the .animationOptions keyword. These take the same arguments as
-normal animations. */
+/* Finally, you want to control the animation for a switch. That is set with the .animationOptions keyword. These take the same arguments as normal animations. */
 
 layerC.states.animationOptions = {
   curve: "spring",

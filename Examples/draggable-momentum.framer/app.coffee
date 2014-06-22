@@ -18,9 +18,7 @@ layerA.on Events.DragEnd, (event, layer) ->
 	velocity = layer.draggable.calculateVelocity()
 	totalVelocity = Utils.pointTotal Utils.pointAbs velocity
 
-	# The momentum animation is actually a spring animation with
-	# very high friction. You can change the the other spring
-	# values for different effects
+	# The momentum animation is actually a spring animation with very high friction. You can change the the other spring values for different effects
 	animation = layer.animate
 		properties:
 			x: parseInt(layer.x + (velocity.x * constant1))

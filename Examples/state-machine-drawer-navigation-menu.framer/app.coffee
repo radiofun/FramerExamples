@@ -1,7 +1,6 @@
 # Airbnb-style Drawer Navigation Menu
-#
-# To try it out, click on the prototype. The front layer should scale down and rotate slightly,
-# and the menu options should come in from the side, similar to what happens in the Airbnb app.
+
+# To try it out, click on the prototype. The front layer should scale down and rotate slightly, and the menu options should come in from the side, similar to what happens in the Airbnb app.
 
 # Setup
 container = new Layer width: 640, height: 1136
@@ -38,8 +37,7 @@ menu = new Layer
 	
 menu.style.webkitPerspective = '1000px'
 
-# Then we'll create each option as a subLayer to the menu layer.
-# We'll start them off slightly rotated (each one is rotated slightly more than the next) and fully transparent. This will be the initial, or "default" state of the menu options.
+# Then we'll create each option as a subLayer to the menu layer. We'll start them off slightly rotated (each one is rotated slightly more than the next) and fully transparent. This will be the initial, or "default" state of the menu options.
 menuOptions = for option, i in ['Search', 'Discover', 'Your Trips', 'Wish Lists', 'Inbox']
 	menuOption = new Layer
 		superLayer: menu
@@ -55,8 +53,7 @@ menuOptions = for option, i in ['Search', 'Discover', 'Your Trips', 'Wish Lists'
 	menuOption.style = fontSize: '32px', fontWeight: 200, lineHeight: '88px', color: '#333'
 	menuOption
 
-# Define the other states we'll be using. In this prototype, we'll need only one more state -
-# one that defines how the individual layers of our prototype look when the menu is open
+# Define the other states we'll be using. In this prototype, we'll need only one more state - one that defines how the individual layers of our prototype look when the menu is open
 
 # When the menu is open, the front view is scaled down and rotated slightly
 front.states.add 'menuOpen', x: 420, scale: 0.55, rotationY: -20
@@ -73,22 +70,19 @@ front.states.animationOptions = back.states.animationOptions =
 for menuOption, i in menuOptions
 	menuOption.states.add 'menuOpen', opacity: 1, rotationY: 0
 	
-	# We'll use a slightly different animation for the menu options coming in.
-	# Since there's less tension, the animation will take a little longer to settle.
+	# We'll use a slightly different animation for the menu options coming in. Since there's less tension, the animation will take a little longer to settle.
 	menuOption.states.animationOptions =
 		delay: i * 0.08
 		curve: 'spring'
 		curveOptions: { tension: 200, friction: 50, velocity: 0 }
 				
-# Finally we'll define a state for the container of the menu options. It will go
-# back to 60px off the left edge of the screen and scale to its original size.
+# Finally we'll define a state for the container of the menu options. It will go back to 60px off the left edge of the screen and scale to its original size.
 menu.states.add 'menuOpen', scale: 1, x: 60
 menu.states.animationOptions =
 	curve: 'spring'
 	curveOptions: { tension: 250, friction: 50, velocity: 0 }
 
-# Alternate between the menuOpen and default state of the menu when the menu button is clicked.
-# For simplicity, we've made the entire front layer clickable.
+# Alternate between the menuOpen and default state of the menu when the menu button is clicked. For simplicity, we've made the entire front layer clickable.
 front.on Events.Click, ->
 	front.states.next()
 	menu.states.next()

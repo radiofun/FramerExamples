@@ -5,14 +5,13 @@
 # Import the generator sketch assets
 importedLayers = Framer.Importer.load("imported/feed")
 
-# Use the Framer library
-# https://github.com/facebook/shortcuts-for-framer
+# Use the Framer library https://github.com/facebook/shortcuts-for-framer
 Utils.domLoadScriptSync("framer/library.js")
 Framer.Shortcuts.initialize importedLayers
 
 Framer.Defaults.Animation.curve = "spring(800,45,0)"
 
-# We don't want the lightbox to capture clicks.
+# We don"t want the lightbox to capture clicks.
 Lightbox.visible = true
 Lightbox.opacity = 0
 Lightbox.style.pointerEvents = "none"
@@ -21,7 +20,7 @@ Lightbox.style.pointerEvents = "none"
 # (Because the masked photos extend beyond the screen)
 PhotoGrid.width = 640
 
-# Helps us make sure we don't try to run multiple animations at once
+# Helps us make sure we don"t try to run multiple animations at once
 animating = false
 
 
@@ -32,13 +31,12 @@ setup = (grid) ->
   # Grab the unmasked image inside the box
   grid.imageLayer = grid.getChild("Image")
   
-  # Remember where the grid box and image were
-  # originally sitting relative to their parents
+  # Remember where the grid box and image were originally sitting relative to their parents
   grid.feedFrame = grid.frame
   grid.imageLayer.feedFrame = grid.imageLayer.frame
 
 
-  # We'll scale the image so it fits the screen horizontally
+  # We"ll scale the image so it fits the screen horizontally
   grid.imageRatio = grid.imageLayer.width / grid.imageLayer.height
   
   # Height of the container when we fill the screen with the photo
@@ -80,11 +78,11 @@ setup = (grid) ->
   grid.states.on Events.StateDidSwitch, (previous, current) ->
     animating = false
 
-    if current == 'zoomed' && previous == 'above'
+    if current == "zoomed" && previous == "above"
       # Enable drag so I can pull to close
       grid.draggable.enabled = true
 
-    if current == 'above' && previous == 'zoomed'
+    if current == "above" && previous == "zoomed"
       # Put the grid back in the collage group after animating
       # (so we can scroll it)
       grid.states.switchInstant "default"
@@ -98,21 +96,16 @@ zoomPhoto = (grid) ->
   return if animating
   animating = true
   
-  # Remember where the photo was originally sitting 
-  # relative to the corner of the screen (This is different than
-  # where it sits relative to its parent - the top of the feed)
+  # Remember where the photo was originally sitting relative to the corner of the screen (This is different than where it sits relative to its parent - the top of the feed)
   grid.states._states.above.x = grid.screenFrame().x
   grid.states._states.above.y = grid.screenFrame().y
   
-  # Take it out of the from the scrolling feed and
-  # put it above other layers
+  # Take it out of the from the scrolling feed and put it above other layers
   grid.superLayer = Phone
   grid.bringToFront()
   
   # Position it to where it was sitting
-  grid.states.switchInstant 'above'
-
-  
+  grid.states.switchInstant "above"
 
   Utils.delay 0.01, ->
   
@@ -121,10 +114,6 @@ zoomPhoto = (grid) ->
     
     grid.states.switch "zoomed"
     grid.imageLayer.states.switch "zoomed"
-
-  
-
-
 
 
 # Zoom out a photo from full-screen into the feed
@@ -138,7 +127,7 @@ unzoomPhoto = (grid) ->
   
   # Animate back to where they were
   grid.imageLayer.states.switch("default")
-  grid.states.switch('above')
+  grid.states.switch("above")
 
 
 
@@ -148,8 +137,7 @@ unzoomPhoto = (grid) ->
 # Make the feed scrollable
 FeedScroll.scrollVertical = true
 
-# This will assign the same functionality to all the 
-# photos in the grid. That's why we're doing it in a loop.
+# This will assign the same functionality to all the photos in the grid. That"s why we"re doing it in a loop.
 PhotoGrid.subLayers.forEach (grid) ->
   
   # We add this with CSS so it stays as we scale the grid
@@ -165,8 +153,7 @@ PhotoGrid.subLayers.forEach (grid) ->
       zoomPhoto grid
 
   
-  # Configure the drag-to-close
-  # But we'll enable this later (in the zoomPhoto function)
+  # Configure the drag-to-close, but we"ll enable this later (in the zoomPhoto function)
   grid.draggable.speedX = 0
   grid.draggable.enabled = false
 
@@ -181,7 +168,6 @@ PhotoGrid.subLayers.forEach (grid) ->
   # What happens when I let go
   grid.on Events.DragEnd, ->
     
-    # Make sure we only do this if I actually dragged it
-    # (DragEnd will fire on regular clicks too)
+    # Make sure we only do this if I actually dragged it (DragEnd will fire on regular clicks too)
     lastDelta = _.last(grid.draggable._deltas)
     unzoomPhoto grid  if lastDelta and lastDelta.y > 10

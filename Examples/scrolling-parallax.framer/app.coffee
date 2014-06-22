@@ -16,8 +16,7 @@ lastYPosition = 0
 container.on Events.TouchStart, (event) ->
 	lastYPosition = event.y
 
-# As the finger slides across the screen, we update the lastYPosition and calculate
-# by how much we really moved (yDelta = lastYPosition - newTPosition).
+# As the finger slides across the screen, we update the lastYPosition and calculate by how much we really moved (yDelta = lastYPosition - newTPosition).
 container.on Events.TouchMove, (event) ->
 	yDelta = lastYPosition - event.y
 	lastYPosition = event.y
