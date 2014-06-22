@@ -1,7 +1,6 @@
 # Draggable Basics
 
-# This example will show you the basics of draggable, a handy function that makes any layer draggable! This is super handy for drag and drop and there are many other things you can do as well. To read more 
-# about draggable, go here: [link to draggable part of the site] 
+# This example will show you the basics of draggable, a handy function that makes any layer draggable! This is super handy for drag and drop and there are many other things you can do as well. To read more about draggable, go here: [link to draggable part of the site] 
 
 # Set up some labels, and our drop target
 sharedStyle = {

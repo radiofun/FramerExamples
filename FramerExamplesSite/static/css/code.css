@@ -21,7 +21,9 @@ pre {
 }
 
 pre, code {
-    font-family: 'Menlo', 'Monaco', Courier, monospace; 
+    font-family: 'Menlo', 'Monaco', Courier, monospace;
+    word-break: normal;
+	white-space: pre-wrap;
 }
 
 code.inline {
