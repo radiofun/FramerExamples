@@ -60,6 +60,8 @@ dropTarget.html = "Drop the bobble above in me!";
 
 dropTarget.style = sharedStyle;
 
+/* Import graphics from Photoshop */
+
 PSD = Framer.Importer.load("imported/bobbles");
 
 /* The first shows bobble the default behavior when you make a layer draggable, and also how to implement a drop target. */
