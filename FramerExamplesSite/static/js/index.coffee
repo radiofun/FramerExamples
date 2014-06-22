@@ -1,6 +1,9 @@
 
 
 showExample = (exampleName) ->
+
+	ga "send", "pageview", "/examples/#{exampleName}"
+
 	$("#code").attr "src", "code.html?name=#{exampleName}"
 	$("#example").attr "src", "example.html?name=#{exampleName}"
 	$("a.download").attr "href", "/static/examples/#{exampleName}.zip"
@@ -10,12 +13,14 @@ $(document).ready ->
 	
 	exampleName = window.location.hash[1..]
 
-	if exampleName
-		showExample exampleName
+	if not exampleName
+		window.location.hash = exampleName = "carousel-onboarding.framer"
 
-		$(".navigation ul li a").each ->
-			if $(@).attr("href")[1..] == exampleName
-				$(@).addClass "active"
+	showExample exampleName
+
+	$(".navigation ul li a").each ->
+		if $(@).attr("href")[1..] == exampleName
+			$(@).addClass "active"
 
 	$(".navigation ul li a").click ->
 
