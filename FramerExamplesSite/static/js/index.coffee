@@ -1,8 +1,7 @@
-
-
 showExample = (exampleName) ->
 
-	ga "send", "pageview", "/examples/#{exampleName}"
+	if ga?
+		ga("send", "pageview", "/examples/#{exampleName}")
 
 	$("#code").attr "src", "code.html?name=#{exampleName}"
 	$("#example").attr "src", "example.html?name=#{exampleName}"
