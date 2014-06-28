@@ -1,155 +1,118 @@
 # By Noah Levin www.nlevin.com
-
-PSD = Framer.Importer.load("imported/GoogleNow")
+myLayers = Framer.Importer.load("imported/GoogleNow")
 
 # Settings
-animateSpeed = 0.18
-animateCurveSpeed = 0.2
 animateInCurve = "spring(400,30,0)"
-animateOutCurve = animateInCurve
-animateOrigin = "50% 50%"
-homeCardBorder = "1px solid rgba(0,0,0,.2)"
-homeCardShadowSize = "0 1px 2px rgba(0,0,0,.2)"
-homeTrafficScale = .953
-homeTrafficY = 960
-homeMovieScale = .92
-homeMovieY = 927
-homeTimeScale = .88
-homeTimeY = 946
-nowTrafficY = 298
-nowMovieY = 795
-nowTimeY = 1380
-nowCardBorder = "1px solid transparent"
-nowCardShadowSize = "0 1px 1px rgba(0,0,0,.2)"
+animateOutCurve = "spring(350,35,0)"
+noBounceCurve = "cubic-bezier"
+noBounceCurveSpeed = "0.22"
 
-# Animate to Now View
 gotoNow = ->
-	PSD["Logo"].animate
-		properties: {y: 17, scale: 0.6}
+	myLayers.ColorLogo.animate
+		properties: {y: 65, scale: 0.662, opacity: 0}
 		curve: animateInCurve
-		time: animateCurveSpeed
 
-	PSD["Searchbox"].animate
-		properties: {y: 165, scale: 1.03, height: 73}
+	myLayers.WhiteLogo.animate
+		properties: {y: 90, scale: 1, opacity: 1 }
 		curve: animateInCurve
-		time: animateCurveSpeed
 
-	PSD["TrafficCard"].animate
-		properties: {y: nowTrafficY, scale: 1}
+	myLayers.StatusBar.animate
+		properties: { opacity: 1 }
 		curve: animateInCurve
-		time: animateCurveSpeed
 
-	PSD["MovieCard"].animate
-		properties: {y: nowMovieY, scale: 1}
+	myLayers.Searchbox.animate
+		properties: { y: 205, scaleY: 0.90, scaleX: 1.0425 }
 		curve: animateInCurve
-		time: animateCurveSpeed
-
-	PSD["TimeCard"].animate
-		properties: {y: nowTimeY, scale: 1}
+	
+	myLayers.TrafficCard.animate
+		properties: { y: -560, scale: 1 }
 		curve: animateInCurve
-		time: animateCurveSpeed
+	
+	myLayers.MovieCard.animate
+		properties: { y: -74, scale: 1 }
+		curve: animateInCurve
+	
+	myLayers.TimeCard.animate
+		properties: { y: 840, scale: 1 }
+		curve: animateInCurve
+	
+	myLayers.Context.animate
+		properties: { opacity: 1, y: -20 }
+		curve: noBounceCurve,
+		time: noBounceCurveSpeed
 
-	PSD["Context"].animate
-		properties: {opacity: 1, y: -20}
-		curve: "ease-out"
-		time: animateSpeed
+	myLayers.Mic.animate
+		properties: { x: 550, y: 242 }
+		curve: animateInCurve
+	
+	myLayers.Top.animate
+		properties: { y: -20, opacity: 0 }
+		curve: noBounceCurve,
+		time: noBounceCurveSpeed
 
-	PSD["Actions"].animate
-		properties: {y: 760, opacity: 0}
-		curve: "ease-out"
-		time: animateSpeed
+	myLayers.Background.animate
+		properties: { brightness: 100 }
+		curve: noBounceCurve,
+		time: noBounceCurveSpeed
 
-	PSD["Top"].animate
-		properties: {y: -20, opacity: 0}
-		curve: "ease-out"
-		time: animateSpeed
+goHome = ->
 
-	document.getElementsByTagName("body")[0].className = "now"
-	return
-
-
-# Animate back home
-gotoHome = ->
-	PSD["Logo"].animate
-		properties: {y: 301, scale: 1}
+	myLayers.ColorLogo.animate
+		properties: { y: 301, scale: 1, opacity: 1 }
 		curve: animateOutCurve
-		time: animateCurveSpeed
 
-	PSD["Searchbox"].animate
-		properties: {y: 470, scale: 1, height: 93}
+	myLayers.WhiteLogo.animate
+		properties: { y: 321, scale: 1.5, opacity: 0 }
 		curve: animateOutCurve
-		time: animateCurveSpeed
 
-	PSD["TrafficCard"].animate
-		properties: {y: homeTrafficY, scale: homeTrafficScale}
+	myLayers.StatusBar.animate
+		properties: { opacity: 0 }
 		curve: animateOutCurve
-		time: animateCurveSpeed
-
-	PSD["MovieCard"].animate
-		properties: {y: homeMovieY, scale: homeMovieScale}
+	
+	myLayers.Searchbox.animate
+		properties: { y: 470, scaleY: 0.99, scaleX: 0.99 }
 		curve: animateOutCurve
-		time: animateCurveSpeed
-
-	PSD["TimeCard"].animate
-		properties: {y: homeTimeY, scale: homeTimeScale}
+	
+	myLayers.TrafficCard.animate
+		properties: { y: 0, scale: .953 }
 		curve: animateOutCurve
-		time: animateCurveSpeed
-
-	PSD["Actions"].animate
-		properties: {y: 820, opacity: 1}
+	
+	myLayers.MovieCard.animate
+		properties: { y: -36, scale: .92 }
 		curve: animateOutCurve
-		time: animateSpeed
-
-	PSD["Top"].animate
-		properties: {y: 22, opacity: 1}
+	
+	myLayers.TimeCard.animate
+		properties: { y: -20, scale: .88 }
 		curve: animateOutCurve
-		time: animateSpeed
-
-	PSD["Context"].animate
-		properties: {opacity: 0, y: 0}
+	
+	myLayers.Top.animate
+		properties: { y: 22, opacity: 1 }
 		curve: animateOutCurve
-		time: animateSpeed
+	
+	myLayers.Context.animate
+		properties: { opacity: 0, y: 0 }
+		curve: noBounceCurve,
+		time: noBounceCurveSpeed
 
-	document.getElementsByTagName("body")[0].className = "home"
-	return
+	myLayers.Mic.animate
+		properties: { x: 534, y: 508 }
+		curve: animateOutCurve
 
+	myLayers.Background.animate
+		properties: { brightness: 104 }
+		curve: noBounceCurve
+		time: noBounceCurveSpeed
 
-# Check device types
-isIphone = ->
-	true  if navigator.userAgent.match(/iPhone/i) or navigator.userAgent.match(/iPod/i)
+# Hide cards that fall off the screen
+myLayers.Content.style.overflow = "hidden"
+myLayers.Content.height = 1136
 
-isWebApp = ->
-	window.navigator.standalone
+# Set Stage
+goHome()
 
-isSafari = ->
-	navigator.userAgent.indexOf("Safari") isnt -1 and navigator.userAgent.indexOf("Chrome") is -1
+toggler = Utils.toggle(gotoNow, goHome)
 
-
-# Set stage
-gotoHome()
-
-# Check pointer types
-pointerType = "click"
-pointerType = "touchstart"  if isIphone()
-
-# Trigger animation on click/tap anywhere
-toggler = Utils.toggle(gotoNow, gotoHome)
-PSD["Content"].on pointerType, (e) ->
-	movePage = undefined
+myLayers.Content.on Events.TouchStart, (e) ->
 	e.preventDefault()
 	movePage = toggler()
 	movePage()
-
-
-# Don't show status bar for web apps
-if isWebApp()
-	PSD["StatusBar"].opacity = 0
-else
-	PSD["Content"].y += 40
-
-# Chrome and safari render webkit filters differently, adjust to turn logo white accordingly
-document.getElementsByTagName("html")[0].className = "safari"  if isSafari() or isIphone()
-
-# Link up the layer names for css
-for layerName, layer of PSD
-	layer._element.setAttribute "name", layerName
