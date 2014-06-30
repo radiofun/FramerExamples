@@ -1,245 +1,200 @@
 /* By Noah Levin www.nlevin.com */
-var PSD, animateCurveSpeed, animateInCurve, animateOrigin, animateOutCurve, animateSpeed, gotoHome, gotoNow, homeCardBorder, homeCardShadowSize, homeMovieScale, homeMovieY, homeTimeScale, homeTimeY, homeTrafficScale, homeTrafficY, isIphone, isSafari, isWebApp, layer, layerName, nowCardBorder, nowCardShadowSize, nowMovieY, nowTimeY, nowTrafficY, pointerType, toggler;
+var animateInCurve, animateOutCurve, goHome, gotoNow, myLayers, noBounceCurve, noBounceCurveSpeed, toggler;
 
-PSD = Framer.Importer.load("imported/GoogleNow");
+myLayers = Framer.Importer.load("imported/GoogleNow");
 
 /* Settings */
 
-animateSpeed = 0.18;
-
-animateCurveSpeed = 0.2;
-
 animateInCurve = "spring(400,30,0)";
 
-animateOutCurve = animateInCurve;
+animateOutCurve = "spring(350,35,0)";
 
-animateOrigin = "50% 50%";
+noBounceCurve = "cubic-bezier";
 
-homeCardBorder = "1px solid rgba(0,0,0,.2)";
-
-homeCardShadowSize = "0 1px 2px rgba(0,0,0,.2)";
-
-homeTrafficScale = .953;
-
-homeTrafficY = 960;
-
-homeMovieScale = .92;
-
-homeMovieY = 927;
-
-homeTimeScale = .88;
-
-homeTimeY = 946;
-
-nowTrafficY = 298;
-
-nowMovieY = 795;
-
-nowTimeY = 1380;
-
-nowCardBorder = "1px solid transparent";
-
-nowCardShadowSize = "0 1px 1px rgba(0,0,0,.2)";
-
-/* Animate to Now View */
+noBounceCurveSpeed = "0.22";
 
 gotoNow = function() {
-  PSD["Logo"].animate({
+  myLayers.ColorLogo.animate({
     properties: {
-      y: 17,
-      scale: 0.6
+      y: 65,
+      scale: 0.662,
+      opacity: 0
     },
-    curve: animateInCurve,
-    time: animateCurveSpeed
+    curve: animateInCurve
   });
-  PSD["Searchbox"].animate({
+  myLayers.WhiteLogo.animate({
     properties: {
-      y: 165,
-      scale: 1.03,
-      height: 73
+      y: 90,
+      scale: 1,
+      opacity: 1
     },
-    curve: animateInCurve,
-    time: animateCurveSpeed
+    curve: animateInCurve
   });
-  PSD["TrafficCard"].animate({
+  myLayers.StatusBar.animate({
     properties: {
-      y: nowTrafficY,
+      opacity: 1
+    },
+    curve: animateInCurve
+  });
+  myLayers.Searchbox.animate({
+    properties: {
+      y: 205,
+      scaleY: 0.90,
+      scaleX: 1.0425
+    },
+    curve: animateInCurve
+  });
+  myLayers.TrafficCard.animate({
+    properties: {
+      y: -560,
       scale: 1
     },
-    curve: animateInCurve,
-    time: animateCurveSpeed
+    curve: animateInCurve
   });
-  PSD["MovieCard"].animate({
+  myLayers.MovieCard.animate({
     properties: {
-      y: nowMovieY,
+      y: -74,
       scale: 1
     },
-    curve: animateInCurve,
-    time: animateCurveSpeed
+    curve: animateInCurve
   });
-  PSD["TimeCard"].animate({
+  myLayers.TimeCard.animate({
     properties: {
-      y: nowTimeY,
+      y: 840,
       scale: 1
     },
-    curve: animateInCurve,
-    time: animateCurveSpeed
+    curve: animateInCurve
   });
-  PSD["Context"].animate({
+  myLayers.Context.animate({
     properties: {
       opacity: 1,
       y: -20
     },
-    curve: "ease-out",
-    time: animateSpeed
+    curve: noBounceCurve,
+    time: noBounceCurveSpeed
   });
-  PSD["Actions"].animate({
+  myLayers.Mic.animate({
     properties: {
-      y: 760,
-      opacity: 0
+      x: 550,
+      y: 242
     },
-    curve: "ease-out",
-    time: animateSpeed
+    curve: animateInCurve
   });
-  PSD["Top"].animate({
+  myLayers.Top.animate({
     properties: {
       y: -20,
       opacity: 0
     },
-    curve: "ease-out",
-    time: animateSpeed
+    curve: noBounceCurve,
+    time: noBounceCurveSpeed
   });
-  document.getElementsByTagName("body")[0].className = "now";
+  return myLayers.Background.animate({
+    properties: {
+      brightness: 100
+    },
+    curve: noBounceCurve,
+    time: noBounceCurveSpeed
+  });
 };
 
-/* Animate back home */
-
-gotoHome = function() {
-  PSD["Logo"].animate({
+goHome = function() {
+  myLayers.ColorLogo.animate({
     properties: {
       y: 301,
-      scale: 1
-    },
-    curve: animateOutCurve,
-    time: animateCurveSpeed
-  });
-  PSD["Searchbox"].animate({
-    properties: {
-      y: 470,
       scale: 1,
-      height: 93
-    },
-    curve: animateOutCurve,
-    time: animateCurveSpeed
-  });
-  PSD["TrafficCard"].animate({
-    properties: {
-      y: homeTrafficY,
-      scale: homeTrafficScale
-    },
-    curve: animateOutCurve,
-    time: animateCurveSpeed
-  });
-  PSD["MovieCard"].animate({
-    properties: {
-      y: homeMovieY,
-      scale: homeMovieScale
-    },
-    curve: animateOutCurve,
-    time: animateCurveSpeed
-  });
-  PSD["TimeCard"].animate({
-    properties: {
-      y: homeTimeY,
-      scale: homeTimeScale
-    },
-    curve: animateOutCurve,
-    time: animateCurveSpeed
-  });
-  PSD["Actions"].animate({
-    properties: {
-      y: 820,
       opacity: 1
     },
-    curve: animateOutCurve,
-    time: animateSpeed
+    curve: animateOutCurve
   });
-  PSD["Top"].animate({
+  myLayers.WhiteLogo.animate({
+    properties: {
+      y: 321,
+      scale: 1.5,
+      opacity: 0
+    },
+    curve: animateOutCurve
+  });
+  myLayers.StatusBar.animate({
+    properties: {
+      opacity: 0
+    },
+    curve: animateOutCurve
+  });
+  myLayers.Searchbox.animate({
+    properties: {
+      y: 470,
+      scaleY: 0.99,
+      scaleX: 0.99
+    },
+    curve: animateOutCurve
+  });
+  myLayers.TrafficCard.animate({
+    properties: {
+      y: 0,
+      scale: .953
+    },
+    curve: animateOutCurve
+  });
+  myLayers.MovieCard.animate({
+    properties: {
+      y: -36,
+      scale: .92
+    },
+    curve: animateOutCurve
+  });
+  myLayers.TimeCard.animate({
+    properties: {
+      y: -20,
+      scale: .88
+    },
+    curve: animateOutCurve
+  });
+  myLayers.Top.animate({
     properties: {
       y: 22,
       opacity: 1
     },
-    curve: animateOutCurve,
-    time: animateSpeed
+    curve: animateOutCurve
   });
-  PSD["Context"].animate({
+  myLayers.Context.animate({
     properties: {
       opacity: 0,
       y: 0
     },
-    curve: animateOutCurve,
-    time: animateSpeed
+    curve: noBounceCurve,
+    time: noBounceCurveSpeed
   });
-  document.getElementsByTagName("body")[0].className = "home";
+  myLayers.Mic.animate({
+    properties: {
+      x: 534,
+      y: 508
+    },
+    curve: animateOutCurve
+  });
+  return myLayers.Background.animate({
+    properties: {
+      brightness: 104
+    },
+    curve: noBounceCurve,
+    time: noBounceCurveSpeed
+  });
 };
 
-/* Check device types */
+/* Hide cards that fall off the screen */
 
-isIphone = function() {
-  if (navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPod/i)) {
-    return true;
-  }
-};
+myLayers.Content.style.overflow = "hidden";
 
-isWebApp = function() {
-  return window.navigator.standalone;
-};
+myLayers.Content.height = 1136;
 
-isSafari = function() {
-  return navigator.userAgent.indexOf("Safari") !== -1 && navigator.userAgent.indexOf("Chrome") === -1;
-};
+/* Set Stage */
 
-/* Set stage */
+goHome();
 
-gotoHome();
+toggler = Utils.toggle(gotoNow, goHome);
 
-/* Check pointer types */
-
-pointerType = "click";
-
-if (isIphone()) {
-  pointerType = "touchstart";
-}
-
-/* Trigger animation on click/tap anywhere */
-
-toggler = Utils.toggle(gotoNow, gotoHome);
-
-PSD["Content"].on(pointerType, function(e) {
+myLayers.Content.on(Events.TouchStart, function(e) {
   var movePage;
-  movePage = void 0;
   e.preventDefault();
   movePage = toggler();
   return movePage();
 });
-
-/* Don't show status bar for web apps */
-
-if (isWebApp()) {
-  PSD["StatusBar"].opacity = 0;
-} else {
-  PSD["Content"].y += 40;
-}
-
-/* Chrome and safari render webkit filters differently, adjust to turn logo white accordingly */
-
-if (isSafari() || isIphone()) {
-  document.getElementsByTagName("html")[0].className = "safari";
-}
-
-/* Link up the layer names for css */
-
-for (layerName in PSD) {
-  layer = PSD[layerName];
-  layer._element.setAttribute("name", layerName);
-}
