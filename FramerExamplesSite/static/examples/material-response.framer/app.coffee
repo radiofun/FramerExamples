@@ -18,13 +18,15 @@ for colNumber in [0...3]
 	Field.on Events.Click, (event, Field) ->
 		
 		Highlight = new Layer
-			width:10, height:10, backgroundColor: "#eee", borderRadius: "50%", opacity:0
+			width:10, height:10, backgroundColor: "#eeeeee", borderRadius: "50%", opacity:0
 		Highlight.superLayer = Field 
+		Highlight._prefer2d = true
 		
 		# Matching the Highlight position with the click position
 		Highlight.x = event.clientX - Container.x - Field.x - (Highlight.width / 2)
 		Highlight.y = event.clientY - Container.y - Field.y - (Highlight.height / 2)
 		
+
 		# Grow Highlight
 		highlightAnimation = Highlight.animate 
 			properties:

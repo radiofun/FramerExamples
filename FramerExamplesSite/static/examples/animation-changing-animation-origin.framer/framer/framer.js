@@ -1728,7 +1728,7 @@ layerProperty = function(name, cssProperty, fallback, validator, set) {
       return this._getPropertyValue(name);
     },
     set: function(value) {
-      if (validator(value) === false) {
+      if ((typeof validator === "function" ? validator(value) : void 0) === false) {
         throw Error("value '" + value + "' of type " + (typeof value) + " is not valid for a Layer." + name + " property");
       }
       this._setPropertyValue(name, value);
@@ -1886,7 +1886,19 @@ exports.Layer = (function(_super) {
 
   Layer.define("sepia", layerProperty("sepia", "webkitFilter", 0, _.isNumber));
 
+  Layer.define("shadowX", layerProperty("shadowX", "boxShadow", 0, _.isNumber));
+
+  Layer.define("shadowY", layerProperty("shadowY", "boxShadow", 0, _.isNumber));
+
+  Layer.define("shadowBlur", layerProperty("shadowBlur", "boxShadow", 0, _.isNumber));
+
+  Layer.define("shadowSpread", layerProperty("shadowSpread", "boxShadow", 0, _.isNumber));
+
+  Layer.define("shadowColor", layerProperty("shadowColor", "boxShadow", ""));
+
   Layer.define("backgroundColor", layerStyleProperty("backgroundColor"));
+
+  Layer.define("color", layerStyleProperty("color"));
 
   Layer.define("borderRadius", layerStyleProperty("borderRadius"));
 
@@ -2804,8 +2816,15 @@ exports.LayerStyle = {
   pointerEvents: function(layer) {
     if (layer.ignoreEvents) {
       return "none";
+    } else {
+      return "auto";
     }
-    return "auto";
+  },
+  boxShadow: function(layer) {
+    if (!layer.shadowColor) {
+      return "";
+    }
+    return "" + layer.shadowX + "px " + layer.shadowY + "px " + layer.shadowBlur + "px " + layer.shadowSpread + "px " + layer.shadowColor;
   }
 };
 
@@ -2821,34 +2840,38 @@ Session = require("./Session").Session;
 "\nTodo:\n- Better looks\n- Resizable\n- Live in own space on top of all Framer stuff\n";
 
 exports.print = function() {
-  var args, printLayer, update;
+  var args, printLayer, printNode;
   args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-  printLayer = Session.printLayer;
+  printLayer = Framer.Session.printLayer;
   if (!printLayer) {
     printLayer = new Layer;
     printLayer.scrollVertical = true;
+    printLayer.ignoreEvents = false;
     printLayer.html = "";
     printLayer.style = {
       "font": "12px/1.35em Menlo",
       "color": "rgba(0,0,0,.7)",
       "padding": "8px",
       "padding-bottom": "30px",
-      "zIndex": 9999,
-      "border-top": "1px solid #ccc",
-      "backgroundColor": "#fff"
+      "border-top": "1px solid #d9d9d9"
     };
-    update = function() {
-      printLayer.width = window.innerWidth;
-      printLayer.height = 160;
-      return printLayer.maxY = window.innerHeight;
-    };
-    update();
-    Screen.on("resize", update);
+    printLayer.opacity = 0.9;
+    printLayer.style.zIndex = 999;
+    printLayer.visible = true;
+    printLayer.backgroundColor = "white";
+    printLayer.width = window.innerWidth;
+    printLayer.height = 160;
+    printLayer.maxY = window.innerHeight;
   }
-  printLayer.visible = true;
-  printLayer.html += "&raquo; " + (args.map(Utils.stringify).join(', ')) + "<br>";
-  printLayer._element.scrollTop = printLayer._element.scrollHeight;
-  return Session.printLayer = printLayer;
+  printNode = document.createElement("div");
+  printNode.innerHTML = "&raquo; " + args.map(Utils.stringify).join(", ") + "<br>";
+  printNode.style["-webkit-user-select"] = "text";
+  printNode.style["cursor"] = "auto";
+  printLayer._element.appendChild(printNode);
+  Framer.Session.printLayer = printLayer;
+  return Utils.delay(0, function() {
+    return printLayer._element.scrollTop = printLayer._element.scrollHeight;
+  });
 };
 
 

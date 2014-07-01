@@ -87,6 +87,9 @@ h1 a {
 	background: #fafafa;
 	color: #666;
 }
+.navigation ul {
+	margin-bottom: 60px
+}
 
 #right-section {
 	float: right; width: 100%; height: 100%;
@@ -156,7 +159,7 @@ a.submit:active {
  
  
 ::-webkit-scrollbar-thumb {
-	background: #343840;
+	background: #7f7f7f;
 	border-radius: 6px;
 }
 

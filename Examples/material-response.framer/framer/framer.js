@@ -1781,6 +1781,7 @@ exports.Layer = (function(_super) {
     this.__insertElement = __bind(this.__insertElement, this);
     this.__createRootElement = __bind(this.__createRootElement, this);
     Session._LayerList.push(this);
+    this._prefer2d = false;
     this._createElement();
     this._setDefaultCSS();
     options = Defaults.getDefaults("Layer", options);
@@ -2808,7 +2809,44 @@ exports.LayerStyle = {
     return css.join(" ");
   },
   webkitTransform: function(layer) {
+    if (layer._prefer2d) {
+      return exports.LayerStyle.webkitTransformPrefer2d(layer);
+    }
     return "		translate3d(" + layer.x + "px," + layer.y + "px," + layer.z + "px) 		scale(" + layer.scale + ")		scale3d(" + layer.scaleX + "," + layer.scaleY + "," + layer.scaleZ + ")		skew(" + layer.skew + "deg," + layer.skew + "deg) 		skewX(" + layer.skewX + "deg)  		skewY(" + layer.skewY + "deg) 		rotateX(" + layer.rotationX + "deg) 		rotateY(" + layer.rotationY + "deg) 		rotateZ(" + layer.rotationZ + "deg) 		";
+  },
+  webkitTransformPrefer2d: function(layer) {
+    var css;
+    css = [];
+    if (layer.z !== 0) {
+      css.push("translate3d(" + layer.x + "px," + layer.y + "px," + layer.z + "px)");
+    } else {
+      css.push("translate(" + layer.x + "px," + layer.y + "px)");
+    }
+    if (layer.scale !== 1) {
+      css.push("scale(" + layer.scale + ")");
+    }
+    if (layer.scaleX !== 1 || layer.scaleY !== 1 || layer.scaleZ !== 1) {
+      css.push("scale3d(" + layer.scaleX + "," + layer.scaleY + "," + layer.scaleZ + ")");
+    }
+    if (layer.skew) {
+      css.push("skew(" + layer.skew + "deg," + layer.skew + "deg)");
+    }
+    if (layer.skewX) {
+      css.push("skewX(" + layer.skewX + "deg)");
+    }
+    if (layer.skewY) {
+      css.push("skewY(" + layer.skewY + "deg)");
+    }
+    if (layer.rotationX) {
+      css.push("rotateX(" + layer.rotationX + "deg)");
+    }
+    if (layer.rotationY) {
+      css.push("rotateY(" + layer.rotationY + "deg)");
+    }
+    if (layer.rotationZ) {
+      css.push("rotateZ(" + layer.rotationZ + "deg)");
+    }
+    return css.join(" ");
   },
   webkitTransformOrigin: function(layer) {
     return "" + (layer.originX * 100) + "% " + (layer.originY * 100) + "%";
