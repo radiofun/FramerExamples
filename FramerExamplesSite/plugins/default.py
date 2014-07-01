@@ -3,6 +3,7 @@ import pipes
 import subprocess
 import logging
 
+
 def run(command):
     
     logger = logging.getLogger(__name__)
@@ -38,7 +39,10 @@ def preBuild(site):
     for fileName in os.listdir(os.path.join(site.static_path, "examples")):
         if fileName.endswith(".framer"):
             EXTRA_CONTEXT["examples"].append({
-            	"path":fileName, "name":fileName.replace(".framer", "")})
+            	"path": fileName, 
+                "name": fileName.replace(".framer", ""),
+                #"slug": slugify.slugify(fileName.replace(".framer", ""))
+            })
 
 def preBuildPage(site, context, data):
     context.update(EXTRA_CONTEXT)

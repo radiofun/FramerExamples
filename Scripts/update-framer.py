@@ -10,7 +10,8 @@ path = os.path.join(os.path.dirname(__file__), "..", "Examples")
 path = os.path.abspath(path)
 
 def downloadFile(url, path):
-	os.system("curl -# '%s' | gzip -d > '%s'" % (url, path))
+	# os.system("curl -# '%s' | gzip -d > '%s'" % (url, path))
+	os.system("curl -# '%s' > '%s'" % (url, path))
 
 # Download the latest framer files
 tempPath = tempfile.mkdtemp()
