@@ -12,9 +12,9 @@
 
   $(document).ready(function() {
     var exampleName;
-    exampleName = window.location.hash.slice(1);
+    exampleName = window.location.hash;
     if (!exampleName) {
-      window.location.hash = exampleName = "animation-basics.framer";
+      window.location.hash = exampleName;
     }
     showExample(exampleName);
     $(".navigation ul li a").each(function() {

@@ -10,10 +10,10 @@ showExample = (exampleName) ->
 	
 $(document).ready ->
 	
-	exampleName = window.location.hash[1..]
+	exampleName = window.location.hash
 
 	if not exampleName
-		window.location.hash = exampleName = "animation-basics.framer"
+		window.location.hash = exampleName
 
 	showExample exampleName
 
