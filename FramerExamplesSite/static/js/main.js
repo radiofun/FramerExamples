@@ -62,7 +62,11 @@ document.addEventListener(
   false
 ); 
 
-$( document ).ready(function() {	
+$( document ).ready(function() {
+	if ($('.navigation ul li:contains("Draggable - Swipe")')) {
+	$("#example").addClass('mobile');
+	}
+		
 	if (detectMobile()) {
 		$('head').append('<link rel="stylesheet" type="text/css" href="/static/css/mobile.css">');
 		
@@ -73,3 +77,4 @@ $( document ).ready(function() {
 		$('.navigation ul li:contains("Snap")').addClass('show');
 	}
 });
+

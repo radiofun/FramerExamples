@@ -13,7 +13,6 @@
 body {
 	margin:0;
 	padding:0;
-	background: black url('/static/images/background.png') repeat scroll top left;
 	font: 28px/1em "Helvetica";
 	color: #FFF; 
 }
@@ -30,4 +29,10 @@ body {
 
 .half {
 	zoom: 0.5; 
+}
+
+#example.mobile {
+	margin: 0 auto;
+	background: red;
+	border: 2px solid red;
 }

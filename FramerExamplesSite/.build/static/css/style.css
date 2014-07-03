@@ -112,7 +112,7 @@ h1 a {
 #example {
 	width: 60%; height: 100%; 
 	position: absolute; top: 0; right: 0;
-	background-color: #282C33;
+	background: #282C33 url('/static/images/background.png') repeat scroll top left;
 	border: none;
 	min-width: 400px; 
 	z-index: 50;

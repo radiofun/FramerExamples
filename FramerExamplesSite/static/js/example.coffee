@@ -22,8 +22,7 @@ $(document).ready ->
 
 	# Set the base dir so images load
 	$("head").append $("<base href=\"/static/examples/#{exampleName}/\">")
-	$('head').append $("<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\">")
+	$('head').append $("<link rel=\"stylesheet\" type=\"text/css\" href=\"/static/examples/#{exampleName}/framer/style.css\">")
 
 	loadScript "framer/framer.js", ->
 		loadScript "app.js", ->
-

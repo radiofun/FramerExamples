@@ -1,6 +1,6 @@
 (function() {
-  $(window).load(function() {
-    var loadExample, loadExampleName;
+  $(document).ready(function() {
+    var loadExample, loadExampleName, showExample;
     loadExample = function(loadExampleName) {
       if (typeof ga !== "undefined" && ga !== null) {
         ga("send", "pageview", "/examples/" + loadExampleName);
@@ -10,11 +10,7 @@
       return $("a.download").attr("href", "/static/examples/" + loadExampleName + ".zip");
     };
     loadExampleName = window.location.hash.slice(1);
-    return loadExample(loadExampleName);
-  });
-
-  $(document).ready(function() {
-    var showExample;
+    loadExample(loadExampleName);
     showExample = function(exampleName) {
       if (typeof ga !== "undefined" && ga !== null) {
         ga("send", "pageview", "/examples/" + exampleName);
