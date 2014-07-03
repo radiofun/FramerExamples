@@ -1,42 +1,49 @@
-showExample = (exampleName) ->
-
-	if ga?
-		ga("send", "pageview", "/examples/#{exampleName}")
-
-	$("#code").attr "src", "code.html?name=#{exampleName}"
-	$("#example").attr "src", "example.html?name=#{exampleName}"
-	$("a.download").attr "href", "/static/examples/#{exampleName}.zip"
-
+$(window).load ->
+	loadExample = (loadExampleName) ->
+		if ga?
+			ga("send", "pageview", "/examples/#{loadExampleName}")
 	
+		$("#code").attr "src", "code.html?name=#{loadExampleName}"
+		$("#example").attr "src", "example.html?name=#{loadExampleName}"
+		$("a.download").attr "href", "/static/examples/#{loadExampleName}.zip"
+	
+	
+	loadExampleName = window.location.hash[1..]
+	loadExample loadExampleName	
+
+
 $(document).ready ->
+		
+	showExample = (exampleName) ->
+		if ga?
+			ga("send", "pageview", "/examples/#{exampleName}")
 	
-	exampleName = window.location.hash
-
-	if not exampleName
-		window.location.hash = exampleName
-
-	showExample exampleName
-
-	$(".navigation ul li a").each ->
-		if $(@).attr("href")[1..] == exampleName
-			$(@).addClass "active"
-
+		$("#code").attr "src", "code.html?name=#{exampleName}"
+		$("#example").attr "src", "example.html?name=#{exampleName}"
+		$("a.download").attr "href", "/static/examples/#{exampleName}.zip"
+			
+	if not window.location.hash[1..]
+		window.location.hash = "animation-basics.framer"
+		loadExample "animation-basics.framer"	
+			
 	$(".navigation ul li a").click ->
-
+	
+		exampleName = $(@).attr("href")[1..]
+		showExample exampleName	
+		
 		$(".navigation ul li").removeClass "active"
 		$(@).parent().addClass "active"
 
-		exampleName = $(@).attr("href")[1..]
-		showExample exampleName
-		
 		$(".navigation").removeClass "appear"
 		$('#topbar').removeClass "active"
-
-
+			
+		
 	$('#topbar img').click ->
 	    $(".navigation").toggleClass "appear"
 	    $('#topbar').toggleClass "active"
-		    
+	    
+	 
+	    
 		
 
 
