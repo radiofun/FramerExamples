@@ -1,4 +1,4 @@
-/* Imported 2 images from Sketch */
+/* Imported images from Sketch */
 var Numbers, bottomScreen, bottomScreenCurve, screens, topScreen;
 
 screens = Framer.Importer.load("imported/Swipe");

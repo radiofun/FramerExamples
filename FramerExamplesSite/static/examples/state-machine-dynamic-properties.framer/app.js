@@ -1,24 +1,26 @@
-/* Here I'll try to show off what dynamic properties are for a state machine. Let's begin by making a layer that you can drag around. */
 var layerA, layerB;
 
 layerA = new Layer({
-  width: 80,
-  height: 80,
-  backgroundColor: "red"
+  width: 100,
+  height: 100,
+  backgroundColor: "#28acff",
+  borderRadius: "6px"
 });
 
-Utils.labelLayer(layerA, "Drag Me");
+Utils.labelLayer(layerA, "Draggable");
 
 layerA.center();
 
 layerA.draggable.enabled = true;
 
-/* Now make a new layer with a two states that we will toggle between. But rather than toggling between a static value for x, we are going to define one state to be "next to layerA". */
+/* Rather than toggling between a static value for x, 
+we define one state to be "next to layerA" */
 
 layerB = new Layer({
-  width: 80,
-  height: 80,
-  backgroundColor: "blue"
+  width: 100,
+  height: 100,
+  backgroundColor: "#7ed6ff",
+  borderRadius: "6px"
 });
 
 layerB.states.add({
@@ -36,8 +38,13 @@ layerB.states.add({
   }
 });
 
-/* Notice how nextToLayerA defines x and y as a function that gets only calculated when the state switch takes place. */
+/* Notice how nextToLayerA defines x and y as a function
+that only gets calculated when the state switch takes place. */
 
 layerB.on(Events.Click, function() {
   return layerB.states.next("nextToLayerA", "topLeft");
 });
+
+layerB.states.animationOptions = {
+  curve: "spring(200, 20, 10)"
+};

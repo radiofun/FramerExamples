@@ -1,4 +1,4 @@
-# Imported 2 images from Sketch
+# Imported images from Sketch
 screens = Framer.Importer.load "imported/Swipe"
 topScreen = screens.firstScreen
 bottomScreen = screens.secondScreen
