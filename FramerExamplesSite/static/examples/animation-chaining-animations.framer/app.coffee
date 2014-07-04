@@ -1,40 +1,37 @@
-# Chaining Animations
-
 # Setup
-notification = new Layer x:0, y:0, width: 200, height: 100, scale: 0
+notification = new Layer x:0, y:0, width: 200, height: 120, scale: 0, borderRadius: "8px", backgroundColor: "#28acff"
 notification.html = 'Click Me'
 notification.style =
-	fontSize: '16px'
+	fontSize: '30px'
 	textAlign: 'center'
-	lineHeight: '100px'
+	lineHeight: '125px'
 notification.center()
 
 notification.animate
 	properties: { scale: 1 }
 	curve: 'spring'
 	curveOptions:
-		friction: 50
+		friction: 20
 	
 notification.on Events.Click, ->
-	# First, we'll make it seem like the layer hinges off of its top left corner
+	# Setting the hinge to the top left
 	notification.originX = 0
 	notification.originY = 0
 	
-	# Notice that we're assigning the result of the animate to a variable called hingeAnimation. This lets us refer to the animation that's about to run in other parts of the code
+	# Assigning the result of the animation to a variable called hingeAnimation
 	hingeAnimation = notification.animate
 		properties:
-			rotationZ: 75
+			rotationZ: 45
 		curve: 'spring'
 		curveOptions:
 			tension: 900
-			friction: 35
-			velocity: 10
+			friction: 25
+			velocity: 30
 		
 	# When the first animation ends, we'll drop the layer out of view
 	hingeAnimation.on 'end', ->
 		notification.animate
 			properties:
-				y: 768
-				rotationZ: 45
+				y: 2000
 			curve: 'cubic-bezier'
-			time: 0.5
+			time: 1

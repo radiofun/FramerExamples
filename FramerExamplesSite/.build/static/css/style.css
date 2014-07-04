@@ -28,13 +28,12 @@ a {
 
 h1 {
 	font-size: 13px; font-weight: 600; 
-	background: #92CEE1;
-	background: #8ECFEE;
+	background: #4DB4EC;
 	padding: 30px 20px 25px;
 	color: #fff; 
 	max-height: 75px;
 	text-transform: uppercase; letter-spacing: 2px;
-	
+	position: fixed; top: 0; left: 0; width: 100%;
 }
 
 h1 a {
@@ -44,7 +43,7 @@ h1 a {
 
 .navigation {
 	float: left;
-	width: 300px; margin-right: -300px;
+	width: 280px; margin-right: -280px;
 	background: #fff;
 	min-width: 200px;
 	height: 100%;
@@ -52,6 +51,11 @@ h1 a {
 	z-index: 300;
 	position: relative;
 	overflow-y: scroll;
+	padding-top: 75px;
+}
+
+.navigation::-webkit-scrollbar {
+	display: none;
 }
 
 .navigation ul {
@@ -71,7 +75,7 @@ h1 a {
 .navigation ul li.headline {
 	padding: 14px 20px 9px 20px;
 	background: #fff; font-size: 20px;
-	color: #333; font-weight: 300;
+	color: #222; font-weight: 300;
 }
 
 .navigation ul li a:hover {
@@ -96,7 +100,7 @@ h1 a {
 }
 
 #right-section .padding {
-	margin-left: 300px; height: 100%;
+	margin-left: 280px; height: 100%;
 	position: relative;
 }
 

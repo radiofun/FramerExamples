@@ -1,4 +1,4 @@
-dribble = JSON.parse Utils.domLoadDataSync  "http://jsonp.jit.su/?url=http://api.dribbble.com/shots/popular"
+dribble = JSON.parse Utils.domLoadDataSync "http://jsonp.jit.su/?url=http://api.dribbble.com/shots/popular"
 
 # Set bg to black
 bgLayer = new Layer width:window.innerWidth, height:window.innerHeight, backgroundColor:"white"

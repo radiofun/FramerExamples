@@ -1,3 +1,4 @@
+/* Imported 2 images from Sketch */
 var Numbers, bottomScreen, bottomScreenCurve, screens, topScreen;
 
 screens = Framer.Importer.load("imported/Swipe");
@@ -8,9 +9,13 @@ bottomScreen = screens.secondScreen;
 
 bottomScreenCurve = "spring(300,20,30)";
 
+/* Enable dragging */
+
 topScreen.draggable.enabled = true;
 
 topScreen.draggable.speedY = 0;
+
+/* Prevent dragging left */
 
 topScreen.draggable.maxDragFrame = topScreen.frame;
 
@@ -28,18 +33,22 @@ Numbers.html = "Swipe";
 
 Numbers.superLayer = screens.bg;
 
+/* Animate bottomScreen and track dragging distance */
+
 topScreen.on(Events.DragMove, function() {
-  bottomScreen.animate({
+  if (topScreen.x > 0) {
+    Numbers.html = event.x;
+  }
+  return bottomScreen.animate({
     properties: {
       scale: 0.1 + (event.x / 640),
       opacity: event.x / 640
     },
     curve: bottomScreenCurve
   });
-  if (topScreen.x > 0) {
-    return Numbers.html = event.x;
-  }
 });
+
+/* If dragged beyond half of screen, swipe */
 
 topScreen.on(Events.DragEnd, function() {
   if (topScreen.x > (this.width / 2)) {

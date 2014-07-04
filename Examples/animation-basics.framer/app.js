@@ -1,13 +1,14 @@
-/* Create a basic animation you just create a layer */
+/* Create layer, set properties */
 var layerA, layerB, layerC;
 
 layerA = new Layer({
   width: 80,
   height: 80,
-  backgroundColor: "blue"
+  backgroundColor: "#7ed6ff",
+  borderRadius: "4px"
 });
 
-/* Start a simple animation for the y property to move 300px down */
+/* Move down 300px */
 
 layerA.animate({
   properties: {
@@ -15,13 +16,14 @@ layerA.animate({
   }
 });
 
-/* Now let's create an animation with some more options. We'll animate both the y property and the rotation of the red square. You can animate as many properties as you want at the same time. The time property controls the speed of the animation in seconds. */
+/* You can animate multiple properties at once */
 
 layerB = new Layer({
   width: 80,
   height: 80,
   x: 100,
-  backgroundColor: "red"
+  backgroundColor: "#26b4f6",
+  borderRadius: "4px"
 });
 
 layerB.animate({
@@ -29,22 +31,25 @@ layerB.animate({
     y: 300,
     rotationZ: 360
   },
-  time: 5
+
+  /* Duration of the animation */
+  time: 2
 });
 
-/* The curve options describe the animation curve. The default is linear, but you can use other curves like "cubic-bezier" or "spring". */
+/* Curve options describe the animation curve. The default is linear, but you can use others like "cubic-bezier" or "spring" */
 
 layerC = new Layer({
   width: 80,
   height: 80,
   x: 200,
-  backgroundColor: "orange"
+  backgroundColor: "#0079c6",
+  borderRadius: "4px"
 });
 
 layerC.animate({
   properties: {
     y: 300
   },
-  time: 5,
+  time: 3,
   curve: "cubic-bezier"
 });
