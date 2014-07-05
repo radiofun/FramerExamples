@@ -33,7 +33,9 @@ h1 {
 	color: #fff; 
 	max-height: 75px;
 	text-transform: uppercase; letter-spacing: 2px;
-	position: fixed; top: 0; left: 0; width: 100%;
+	position: absolute; top: 0; left: 0;
+	width: 100%;
+	max-width: 290px;
 }
 
 h1 a {
