@@ -173,6 +173,10 @@ a.submit:active {
 	display: none;
 }
 
+.hide {
+	display: none;
+}
+
 .show {
 	display: block !important;
 }

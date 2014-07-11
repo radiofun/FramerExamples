@@ -1,7 +1,4 @@
-
-
-$(document).ready ->
-	
+$(window).load ->
 	loadExample = (loadExampleName) ->
 		if ga?
 			ga("send", "pageview", "/examples/#{loadExampleName}")
@@ -13,6 +10,8 @@ $(document).ready ->
 	
 	loadExampleName = window.location.hash[1..]
 	loadExample loadExampleName	
+
+$(document).ready ->
 	
 	showExample = (exampleName) ->
 		if ga?
