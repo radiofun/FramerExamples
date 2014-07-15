@@ -6,8 +6,11 @@ originposition = 800
 originposition2 = 1400
 animatedposition = 870
 
+canvas = new BackgroundLayer backgroundColor:"#e82472"
+
 #Setting up the Layers
-bglayer = new Layer x:0, y:0, width:540, height:960, backgroundColor:'#e5e5e5'
+
+bglayer = new Layer x:0, y:0, width:540, height:960, backgroundColor:'#e5e5e5', shadowY:5, shadowBlur:10, shadowColor:'rgba(0,0,0,0.5)'
 topbar = new Layer 
 	x:0, y:0, width:540, height:232, image:"images/Top Bar.png"
 contentcard = new Layer 
@@ -15,6 +18,7 @@ contentcard = new Layer
 
 for count in [0...4]
 	smallcard = new Layer x:15+count*129, y:originposition, width:118, height:118, image:"images/card_small.png"
+	bglayer.addSubLayer(smallcard)
 	
 overlaylayer = new Layer width:540, height:960, backgroundColor:'#e5e5e5', opacity:0
 container = new Layer x:-205, y:560, width:540, height:300, backgroundColor:'transparent'
@@ -25,6 +29,13 @@ logobase = new Layer x:0, y:0, width:228, height:228, image:"images/logo.png", s
 nytlogo = new Layer x:0, y:0, width:80, height:107, image:"images/nytlogo.png", scale:0.25	
 
 #Setting up the Positions
+canvas.addSubLayer(bglayer)
+bglayer.addSubLayer(topbar)
+bglayer.addSubLayer(contentcard)
+bglayer.addSubLayer(overlaylayer)
+bglayer.addSubLayer(container)
+bglayer.addSubLayer(documentlayer)
+bglayer.center()
 container.addSubLayer(logobase)
 container.addSubLayer(nytlogo)
 logobase.center()
